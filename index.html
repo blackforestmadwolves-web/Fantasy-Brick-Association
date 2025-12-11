@@ -5,7 +5,7 @@
   <title>Fantasy Brick Association – FBA Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* Sehr simples Basis-Layout, Styling machen wir später schöner */
+    /* Basis-Layout */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -427,7 +427,14 @@
 
   <script>
     (function () {
-      // Tabs: Power Ranking
+      // --- Konfiguration: CSV-Quellen ---
+      const SETTINGS_CSV_URL =
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv';
+
+      const STANDINGS_CSV_URL =
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv';
+
+      // --- Tabs: Power Ranking ---
       const tabPr = document.getElementById('tab-pr');
       const tabPrPlus = document.getElementById('tab-pr-plus');
       const prClassic = document.getElementById('pr-classic');
@@ -448,7 +455,7 @@
         });
       }
 
-      // Tabs: Rekorde
+      // --- Tabs: Rekorde ---
       const tabRecSeason = document.getElementById('tab-records-season');
       const tabRecAlltime = document.getElementById('tab-records-alltime');
       const recSeason = document.getElementById('records-season');
@@ -469,10 +476,27 @@
         });
       }
 
-      // Live-Settings aus Google Sheets laden
-      const SETTINGS_CSV_URL =
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv';
+      // --- Helper: CSV -> Array von Objekten ---
+      function parseCsv(text) {
+        const lines = text.trim().split('\n').filter(l => l.trim().length > 0);
+        if (lines.length === 0) return [];
+        const headers = lines[0].split(',').map(h => h.trim());
+        const rows = [];
 
+        for (let i = 1; i < lines.length; i++) {
+          const raw = lines[i];
+          if (!raw.trim()) continue;
+          const parts = raw.split(',');
+          const obj = {};
+          headers.forEach((h, idx) => {
+            obj[h] = (parts[idx] || '').trim();
+          });
+          rows.push(obj);
+        }
+        return rows;
+      }
+
+      // --- Settings laden ---
       async function loadSettings() {
         try {
           const res = await fetch(SETTINGS_CSV_URL);
@@ -481,9 +505,15 @@
             return;
           }
           const text = await res.text();
-          const lines = text.trim().split('\n');
+          const settingsRows = parseCsv(text);
           const settings = {};
 
+          for (const row of settingsRows) {
+            const key = row['current_season'] ? null : null; // Dummy, wir nutzen hier das bekannte key/value-Schema
+          }
+
+          // Da wir das settings-Sheet als key,value aufgebaut haben, nochmal simpel parsen:
+          const lines = text.trim().split('\n');
           for (const line of lines) {
             if (!line.trim()) continue;
             const parts = line.split(',');
@@ -543,7 +573,171 @@
         }
       }
 
+      // --- Standings laden ---
+      function parseStreakValue(label) {
+        if (!label) return 0;
+        const m = label.match(/(\d+)/);
+        const n = m ? parseInt(m[1], 10) : 0;
+        const lower = label.toLowerCase();
+        if (lower.includes('niederlage')) return -n;
+        if (lower.includes('verlust')) return -n;
+        if (lower.includes('siege') || lower.includes('sieg')) return n;
+        return 0;
+      }
+
+      async function loadStandings() {
+        try {
+          const res = await fetch(STANDINGS_CSV_URL);
+          if (!res.ok) {
+            console.error('Fehler beim Laden der Standings:', res.status);
+            return;
+          }
+          const text = await res.text();
+          const rows = parseCsv(text);
+          const tbody = document.getElementById('standings-body');
+          if (!tbody) return;
+
+          tbody.innerHTML = '';
+
+          let rank = 1;
+          let bestTeam = null;
+          let bestWinPct = -1;
+          let bestWinStreak = null;
+          let bestWinStreakValue = 0;
+          let bestLossStreak = null;
+          let bestLossStreakValue = 0;
+
+          rows.forEach(row => {
+            const team = row.team_name || '';
+            const conf = row.conf || '';
+            const W = row.W ? parseInt(row.W, 10) : 0;
+            const L = row.L ? parseInt(row.L, 10) : 0;
+            const winPct = row.win_pct ? parseFloat(row.win_pct) : 0;
+            const streakLabel = row.streak_label || '';
+
+            // Tabelle: U (Ties) = 0 für aktuelle Saison
+            const U = 0;
+
+            const tr = document.createElement('tr');
+
+            const tdRank = document.createElement('td');
+            tdRank.textContent = rank.toString();
+            tr.appendChild(tdRank);
+
+            const tdTeam = document.createElement('td');
+            tdTeam.textContent = team;
+            tr.appendChild(tdTeam);
+
+            const tdConf = document.createElement('td');
+            tdConf.textContent = conf;
+            tr.appendChild(tdConf);
+
+            const tdW = document.createElement('td');
+            tdW.textContent = W.toString();
+            tr.appendChild(tdW);
+
+            const tdL = document.createElement('td');
+            tdL.textContent = L.toString();
+            tr.appendChild(tdL);
+
+            const tdT = document.createElement('td');
+            tdT.textContent = U.toString();
+            tr.appendChild(tdT);
+
+            const tdPct = document.createElement('td');
+            tdPct.textContent = winPct > 0 ? (winPct * 100).toFixed(1) + '%' : '0.0%';
+            tr.appendChild(tdPct);
+
+            const tdStreak = document.createElement('td');
+            tdStreak.textContent = streakLabel || '–';
+            tr.appendChild(tdStreak);
+
+            tbody.appendChild(tr);
+
+            // Beste Bilanz fürs Dashboard
+            if (winPct > bestWinPct) {
+              bestWinPct = winPct;
+              bestTeam = team;
+            }
+
+            // Serien auswerten
+            const streakValue = parseStreakValue(streakLabel);
+            if (streakValue > bestWinStreakValue) {
+              bestWinStreakValue = streakValue;
+              bestWinStreak = { team, label: streakLabel };
+            }
+            if (streakValue < bestLossStreakValue) {
+              bestLossStreakValue = streakValue;
+              bestLossStreak = { team, label: streakLabel };
+            }
+
+            rank++;
+          });
+
+          // Live Dashboard: Beste Bilanz
+          if (bestTeam !== null) {
+            const bestTeamNameEl = document.getElementById('best-team-name');
+            const bestTeamPctEl = document.getElementById('best-team-win-pct');
+            if (bestTeamNameEl) bestTeamNameEl.textContent = bestTeam;
+            if (bestTeamPctEl && bestWinPct >= 0) {
+              bestTeamPctEl.textContent = (bestWinPct * 100).toFixed(1) + '%';
+            }
+          }
+
+          // Live Dashboard: Längste Siegesserie
+          if (bestWinStreak && bestWinStreakValue > 0) {
+            const winTeamEl = document.getElementById('best-streak-win-team');
+            const winLabelEl = document.getElementById('best-streak-win-label');
+            if (winTeamEl) winTeamEl.textContent = bestWinStreak.team;
+            if (winLabelEl) winLabelEl.textContent = bestWinStreak.label;
+          }
+
+          // Live Dashboard: Längste Niederlagenserie
+          if (bestLossStreak && bestLossStreakValue < 0) {
+            const lossTeamEl = document.getElementById('best-streak-loss-team');
+            const lossLabelEl = document.getElementById('best-streak-loss-label');
+            if (lossTeamEl) lossTeamEl.textContent = bestLossStreak.team;
+            if (lossLabelEl) lossLabelEl.textContent = bestLossStreak.label;
+          }
+
+          // Serien-Liste unten (optional: einfach Standing-Reihenfolge übernehmen)
+          const streaksWinList = document.getElementById('streaks-win-list');
+          const streaksLossList = document.getElementById('streaks-loss-list');
+          if (streaksWinList && streaksLossList) {
+            streaksWinList.innerHTML = '';
+            streaksLossList.innerHTML = '';
+
+            rows.forEach(row => {
+              const team = row.team_name || '';
+              const streakLabel = row.streak_label || '';
+              const val = parseStreakValue(streakLabel);
+              if (!val) return;
+              const p = document.createElement('p');
+              p.className = 'subtext';
+              p.textContent = team + ' – ' + streakLabel;
+
+              if (val > 0) {
+                streaksWinList.appendChild(p);
+              } else if (val < 0) {
+                streaksLossList.appendChild(p);
+              }
+            });
+
+            if (!streaksWinList.innerHTML.trim()) {
+              streaksWinList.innerHTML = '<p class="subtext">Keine aktiven Siegesserien.</p>';
+            }
+            if (!streaksLossList.innerHTML.trim()) {
+              streaksLossList.innerHTML = '<p class="subtext">Keine aktiven Niederlagenserien.</p>';
+            }
+          }
+        } catch (err) {
+          console.error('Fehler beim Laden der Standings:', err);
+        }
+      }
+
+      // Init
       loadSettings();
+      loadStandings();
     })();
   </script>
 </body>
