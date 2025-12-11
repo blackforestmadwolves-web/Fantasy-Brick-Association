@@ -166,10 +166,22 @@
             <p class="subtext">
               Hier wird jede Woche seziert, überreagiert und in 8 Punkten zerlegt.
             </p>
-            <!-- TODO: echtes Podcast-Embed -->
             <div style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8;">
-              Podcast-Embed folgt – vorerst:
-              <a id="podcast-link" href="#" target="_blank">Zur aktuellen Folge</a>
+              <div id="podcast-embed-wrapper" style="display:none;">
+                <iframe
+                  id="podcast-embed"
+                  src=""
+                  width="100%"
+                  height="152"
+                  frameborder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                ></iframe>
+              </div>
+              <div id="podcast-fallback">
+                Podcast-Embed folgt – vorerst:
+                <a id="podcast-link" href="#" target="_blank">Zur aktuellen Folge</a>
+              </div>
             </div>
           </div>
         </div>
@@ -302,7 +314,7 @@
     <section id="player-week-section">
       <h2>Player Performance of the Week</h2>
       <p class="subtext">Der dominanteste Spieler der aktuellen Fantasy-Woche.</p>
-      <div class="card" id="player-week-card" style="margin-top:1rem%;">
+      <div class="card" id="player-week-card" style="margin-top:1rem;">
         <span class="tag">Woche</span>
         <h3 id="player-week-name">–</h3>
         <p class="subtext" id="player-week-team">Team – NBA – FBA</p>
@@ -517,11 +529,24 @@
             if (podcastTitleEl) podcastTitleEl.textContent = settings.podcast_title;
           }
 
-          // Podcast-Link
+          // Podcast-Link (Fallback)
           if (settings.podcast_url) {
             const podcastLinkEl = document.getElementById('podcast-link');
             if (podcastLinkEl) {
               podcastLinkEl.href = settings.podcast_url;
+            }
+          }
+
+          // Podcast-Embed (wenn vorhanden)
+          if (settings.podcast_embed_src) {
+            const iframe = document.getElementById('podcast-embed');
+            const wrapper = document.getElementById('podcast-embed-wrapper');
+            const fallback = document.getElementById('podcast-fallback');
+
+            if (iframe && wrapper) {
+              iframe.src = settings.podcast_embed_src;
+              wrapper.style.display = 'block';
+              if (fallback) fallback.style.display = 'none';
             }
           }
         } catch (err) {
