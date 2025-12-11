@@ -168,7 +168,8 @@
             </p>
             <!-- TODO: echtes Podcast-Embed -->
             <div style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8;">
-              Podcast-Embed folgt – vorerst: <a id="podcast-link" href="#" target="_blank">Zur aktuellen Folge</a>
+              Podcast-Embed folgt – vorerst:
+              <a id="podcast-link" href="#" target="_blank">Zur aktuellen Folge</a>
             </div>
           </div>
         </div>
@@ -301,7 +302,7 @@
     <section id="player-week-section">
       <h2>Player Performance of the Week</h2>
       <p class="subtext">Der dominanteste Spieler der aktuellen Fantasy-Woche.</p>
-      <div class="card" id="player-week-card" style="margin-top:1rem;">
+      <div class="card" id="player-week-card" style="margin-top:1rem%;">
         <span class="tag">Woche</span>
         <h3 id="player-week-name">–</h3>
         <p class="subtext" id="player-week-team">Team – NBA – FBA</p>
@@ -424,14 +425,14 @@
   </footer>
 
   <script>
-    // Placeholder: einfache Tab-Logik für PR & Rekorde
     (function () {
+      // Tabs: Power Ranking
       const tabPr = document.getElementById('tab-pr');
       const tabPrPlus = document.getElementById('tab-pr-plus');
       const prClassic = document.getElementById('pr-classic');
       const prPlus = document.getElementById('pr-plus');
 
-      if (tabPr && tabPrPlus) {
+      if (tabPr && tabPrPlus && prClassic && prPlus) {
         tabPr.addEventListener('click', () => {
           tabPr.classList.add('active');
           tabPrPlus.classList.remove('active');
@@ -446,12 +447,13 @@
         });
       }
 
+      // Tabs: Rekorde
       const tabRecSeason = document.getElementById('tab-records-season');
       const tabRecAlltime = document.getElementById('tab-records-alltime');
       const recSeason = document.getElementById('records-season');
       const recAlltime = document.getElementById('records-alltime');
 
-      if (tabRecSeason && tabRecAlltime) {
+      if (tabRecSeason && tabRecAlltime && recSeason && recAlltime) {
         tabRecSeason.addEventListener('click', () => {
           tabRecSeason.classList.add('active');
           tabRecAlltime.classList.remove('active');
@@ -466,7 +468,68 @@
         });
       }
 
-      // TODO: Später hier fetch() zu Google Sheets einbauen
+      // Live-Settings aus Google Sheets laden
+      const SETTINGS_CSV_URL =
+        'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv';
+
+      async function loadSettings() {
+        try {
+          const res = await fetch(SETTINGS_CSV_URL);
+          if (!res.ok) {
+            console.error('Fehler beim Laden der Settings:', res.status);
+            return;
+          }
+          const text = await res.text();
+          const lines = text.trim().split('\n');
+          const settings = {};
+
+          for (const line of lines) {
+            if (!line.trim()) continue;
+            const parts = line.split(',');
+            const key = (parts[0] || '').trim();
+            const value = parts.slice(1).join(',').trim();
+            if (key) {
+              settings[key] = value;
+            }
+          }
+
+          // Season
+          if (settings.current_season) {
+            const seasonEl = document.getElementById('season-label');
+            if (seasonEl) seasonEl.textContent = settings.current_season;
+          }
+
+          // Aktuelle Woche
+          if (settings.current_week) {
+            const weekEl = document.getElementById('current-week-label');
+            if (weekEl) weekEl.textContent = settings.current_week;
+          }
+
+          // Letztes Update
+          if (settings.last_update) {
+            const updateEl = document.getElementById('last-update-label');
+            if (updateEl) updateEl.textContent = settings.last_update;
+          }
+
+          // Podcast-Titel
+          if (settings.podcast_title) {
+            const podcastTitleEl = document.getElementById('podcast-title');
+            if (podcastTitleEl) podcastTitleEl.textContent = settings.podcast_title;
+          }
+
+          // Podcast-Link
+          if (settings.podcast_url) {
+            const podcastLinkEl = document.getElementById('podcast-link');
+            if (podcastLinkEl) {
+              podcastLinkEl.href = settings.podcast_url;
+            }
+          }
+        } catch (err) {
+          console.error('Fehler beim Laden der Settings:', err);
+        }
+      }
+
+      loadSettings();
     })();
   </script>
 </body>
