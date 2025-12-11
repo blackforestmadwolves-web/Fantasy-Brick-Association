@@ -5,7 +5,6 @@
   <title>Fantasy Brick Association – FBA Hub</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
-    /* Basis-Layout */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -140,6 +139,14 @@
       color: #ffae52;
       text-decoration: none;
     }
+    .team-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      object-fit: cover;
+      background: #111;
+      flex-shrink: 0;
+    }
   </style>
 </head>
 <body>
@@ -196,24 +203,39 @@
       <div class="grid grid-3" style="margin-top:1rem;">
         <div class="card">
           <span class="tag">Beste Bilanz</span>
-          <h3 id="best-team-name">–</h3>
-          <p class="subtext">
-            Siegquote: <span id="best-team-win-pct">–</span>
-          </p>
+          <div class="flex">
+            <img id="best-team-logo" class="team-logo" src="" alt="" style="display:none;">
+            <div>
+              <h3 id="best-team-name">–</h3>
+              <p class="subtext">
+                Siegquote: <span id="best-team-win-pct">–</span>
+              </p>
+            </div>
+          </div>
         </div>
         <div class="card">
           <span class="tag">Längste Siegesserie</span>
-          <h3 id="best-streak-win-team">–</h3>
-          <p class="subtext">
-            <span id="best-streak-win-label">–</span>
-          </p>
+          <div class="flex">
+            <img id="best-streak-win-logo" class="team-logo" src="" alt="" style="display:none;">
+            <div>
+              <h3 id="best-streak-win-team">–</h3>
+              <p class="subtext">
+                <span id="best-streak-win-label">–</span>
+              </p>
+            </div>
+          </div>
         </div>
         <div class="card">
           <span class="tag">Längste Niederlagenserie</span>
-          <h3 id="best-streak-loss-team">–</h3>
-          <p class="subtext">
-            <span id="best-streak-loss-label">–</span>
-          </p>
+          <div class="flex">
+            <img id="best-streak-loss-logo" class="team-logo" src="" alt="" style="display:none;">
+            <div>
+              <h3 id="best-streak-loss-team">–</h3>
+              <p class="subtext">
+                <span id="best-streak-loss-label">–</span>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -434,6 +456,32 @@
       const STANDINGS_CSV_URL =
         'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv';
 
+      // --- Logo-Mapping ---
+      const TEAM_LOGO_PATH = './logos/';
+      const TEAM_LOGOS = {
+        'BlackForest Mad Wolves': 'bfm.png',
+        'East Bay Pirates': 'pirates.png',
+        'Karlsruhe Unicorns': 'unicorns.png',
+        'Guardians of Rhinos': 'rhinos.png',
+        'Wild Cheetahs': 'cheetahs.png',
+        'Toronto Polar Bears': 'bears.png',
+        'Dormettingen Eagles': 'eagles.png',
+        'Balingen Lions': 'lions.png'
+      };
+
+      function setTeamLogo(imgId, teamName) {
+        const img = document.getElementById(imgId);
+        if (!img) return;
+        const file = TEAM_LOGOS[teamName];
+        if (!file) {
+          img.style.display = 'none';
+          return;
+        }
+        img.src = TEAM_LOGO_PATH + file;
+        img.alt = teamName + ' Logo';
+        img.style.display = 'block';
+      }
+
       // --- Tabs: Power Ranking ---
       const tabPr = document.getElementById('tab-pr');
       const tabPrPlus = document.getElementById('tab-pr-plus');
@@ -505,15 +553,9 @@
             return;
           }
           const text = await res.text();
-          const settingsRows = parseCsv(text);
-          const settings = {};
 
-          for (const row of settingsRows) {
-            const key = row['current_season'] ? null : null; // Dummy, wir nutzen hier das bekannte key/value-Schema
-          }
-
-          // Da wir das settings-Sheet als key,value aufgebaut haben, nochmal simpel parsen:
           const lines = text.trim().split('\n');
+          const settings = {};
           for (const line of lines) {
             if (!line.trim()) continue;
             const parts = line.split(',');
@@ -524,31 +566,26 @@
             }
           }
 
-          // Season
           if (settings.current_season) {
             const seasonEl = document.getElementById('season-label');
             if (seasonEl) seasonEl.textContent = settings.current_season;
           }
 
-          // Aktuelle Woche
           if (settings.current_week) {
             const weekEl = document.getElementById('current-week-label');
             if (weekEl) weekEl.textContent = settings.current_week;
           }
 
-          // Letztes Update
           if (settings.last_update) {
             const updateEl = document.getElementById('last-update-label');
             if (updateEl) updateEl.textContent = settings.last_update;
           }
 
-          // Podcast-Titel
           if (settings.podcast_title) {
             const podcastTitleEl = document.getElementById('podcast-title');
             if (podcastTitleEl) podcastTitleEl.textContent = settings.podcast_title;
           }
 
-          // Spotify-Link (Fallback)
           if (settings.podcast_url) {
             const podcastLinkEl = document.getElementById('podcast-link');
             if (podcastLinkEl) {
@@ -556,7 +593,6 @@
             }
           }
 
-          // Spotify-Embed (wenn vorhanden)
           if (settings.podcast_embed_src) {
             const iframe = document.getElementById('podcast-embed');
             const wrapper = document.getElementById('podcast-embed-wrapper');
@@ -614,8 +650,6 @@
             const L = row.L ? parseInt(row.L, 10) : 0;
             const winPct = row.win_pct ? parseFloat(row.win_pct) : 0;
             const streakLabel = row.streak_label || '';
-
-            // Tabelle: U (Ties) = 0 für aktuelle Saison
             const U = 0;
 
             const tr = document.createElement('tr');
@@ -654,13 +688,11 @@
 
             tbody.appendChild(tr);
 
-            // Beste Bilanz fürs Dashboard
             if (winPct > bestWinPct) {
               bestWinPct = winPct;
               bestTeam = team;
             }
 
-            // Serien auswerten
             const streakValue = parseStreakValue(streakLabel);
             if (streakValue > bestWinStreakValue) {
               bestWinStreakValue = streakValue;
@@ -674,7 +706,6 @@
             rank++;
           });
 
-          // Live Dashboard: Beste Bilanz
           if (bestTeam !== null) {
             const bestTeamNameEl = document.getElementById('best-team-name');
             const bestTeamPctEl = document.getElementById('best-team-win-pct');
@@ -682,25 +713,25 @@
             if (bestTeamPctEl && bestWinPct >= 0) {
               bestTeamPctEl.textContent = (bestWinPct * 100).toFixed(1) + '%';
             }
+            setTeamLogo('best-team-logo', bestTeam);
           }
 
-          // Live Dashboard: Längste Siegesserie
           if (bestWinStreak && bestWinStreakValue > 0) {
             const winTeamEl = document.getElementById('best-streak-win-team');
             const winLabelEl = document.getElementById('best-streak-win-label');
             if (winTeamEl) winTeamEl.textContent = bestWinStreak.team;
             if (winLabelEl) winLabelEl.textContent = bestWinStreak.label;
+            setTeamLogo('best-streak-win-logo', bestWinStreak.team);
           }
 
-          // Live Dashboard: Längste Niederlagenserie
           if (bestLossStreak && bestLossStreakValue < 0) {
             const lossTeamEl = document.getElementById('best-streak-loss-team');
             const lossLabelEl = document.getElementById('best-streak-loss-label');
             if (lossTeamEl) lossTeamEl.textContent = bestLossStreak.team;
             if (lossLabelEl) lossLabelEl.textContent = bestLossStreak.label;
+            setTeamLogo('best-streak-loss-logo', bestLossStreak.team);
           }
 
-          // Serien-Liste unten (optional: einfach Standing-Reihenfolge übernehmen)
           const streaksWinList = document.getElementById('streaks-win-list');
           const streaksLossList = document.getElementById('streaks-loss-list');
           if (streaksWinList && streaksLossList) {
@@ -735,7 +766,6 @@
         }
       }
 
-      // Init
       loadSettings();
       loadStandings();
     })();
