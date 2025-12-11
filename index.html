@@ -2,772 +2,853 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Fantasy Brick Association – FBA Hub</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FBA Hub – Fantasy Brick Association</title>
   <style>
-    body {
+    :root {
+      --bg: #05060b;
+      --bg-soft: #0e1018;
+      --bg-card: #111320;
+      --bg-card-soft: #171a2b;
+      --accent: #ff8a3c; /* FBA-Orange */
+      --accent-soft: rgba(255,138,60,0.12);
+      --text-main: #f5f5ff;
+      --text-muted: #a3a7c2;
+      --border-subtle: rgba(255,255,255,0.05);
+      --radius-lg: 18px;
+      --radius-xl: 22px;
+      --shadow-soft: 0 18px 45px rgba(0,0,0,0.65);
+      --transition-fast: 160ms ease-out;
+      --max-width: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0b0b0f;
-      color: #f5f5f5;
+      background: radial-gradient(circle at top, #171a2b 0, #05060b 45%, #020308 100%);
+      color: var(--text-main);
+      min-height: 100vh;
     }
-    header {
-      padding: 2rem 1.5rem;
-      background: radial-gradient(circle at top left, #ff8a00, #14141f);
+
+    a {
+      color: inherit;
+      text-decoration: none;
     }
-    main {
-      padding: 1.5rem;
-      max-width: 1200px;
+
+    /* Layout */
+
+    .page {
+      max-width: var(--max-width);
       margin: 0 auto;
+      padding: 20px 16px 40px;
     }
-    h1, h2, h3 {
-      margin: 0 0 0.5rem;
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(to bottom, rgba(5,6,11,0.96), rgba(5,6,11,0.8), transparent);
     }
+
+    .topbar {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 10px 16px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 20%, #fff, #ffd6b4 25%, #ff8a3c 55%, #4b1c0b 100%);
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1b0b03;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav {
+      display: flex;
+      gap: 10px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform 80ms ease-out;
+      white-space: nowrap;
+    }
+
+    .nav a:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: rgba(255,138,60,0.5);
+      transform: translateY(-1px);
+    }
+
+    .nav a:active {
+      transform: translateY(0);
+    }
+
+    main {
+      margin-top: 10px;
+    }
+
     section {
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      background: rgba(20, 20, 31, 0.9);
-      border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.04);
+      margin-bottom: 32px;
     }
-    .subtext {
-      opacity: 0.8;
-      font-size: 0.9rem;
-    }
-    .grid {
+
+    /* Hero */
+
+    .hero {
       display: grid;
-      gap: 1rem;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 22px;
+      align-items: center;
+      margin-bottom: 28px;
     }
-    @media (min-width: 768px) {
-      .grid-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-      .grid-3 {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
+
+    .hero-text h1 {
+      font-size: clamp(26px, 4vw, 32px);
+      margin-bottom: 8px;
     }
-    .pill-row {
+
+    .hero-kicker {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .hero-text p {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 460px;
+    }
+
+    .hero-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-top: 0.75rem;
+      gap: 8px;
+      margin-top: 12px;
     }
+
     .pill {
-      font-size: 0.8rem;
-      padding: 0.3rem 0.7rem;
+      font-size: 11px;
+      padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(135deg, rgba(255,138,60,0.14), rgba(255,138,60,0.04));
+      color: var(--accent);
     }
-    .card {
-      padding: 1rem;
-      border-radius: 10px;
-      background: rgba(10, 10, 18, 0.9);
-      border: 1px solid rgba(255, 255, 255, 0.05);
+
+    .hero-badge {
+      position: relative;
+      padding: 12px 14px;
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(255,138,60,0.24), rgba(12,14,22,0.98));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: var(--shadow-soft);
+      font-size: 12px;
+      color: var(--text-muted);
     }
-    .tag {
-      display: inline-block;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      opacity: 0.7;
-      margin-bottom: 0.25rem;
+
+    .hero-badge-title {
+      font-size: 13px;
+      color: var(--text-main);
+      font-weight: 600;
+      margin-bottom: 4px;
     }
-    .flex {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+
+    .hero-badge-highlight {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 600;
     }
-    .flex-between {
+
+    /* Sektionen allgemein */
+
+    .section-header {
       display: flex;
       justify-content: space-between;
-      gap: 0.75rem;
-      align-items: center;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
     }
-    .table {
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .section-tag {
+      font-size: 11px;
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,138,60,0.5);
+      background: rgba(255,138,60,0.08);
+      white-space: nowrap;
+    }
+
+    /* Cards */
+
+    .card-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(255,138,60,0.16), rgba(7,9,15,0.98));
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      padding: 14px 14px 13px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card--muted {
+      background: linear-gradient(135deg, rgba(15,17,27,0.98), rgba(6,7,12,0.98));
+    }
+
+    .card-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 2px;
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .card-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-logo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .team-logo {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      object-fit: cover;
+      background: #000;
+      border: 1px solid rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    /* Tabelle Standings */
+
+    .table-wrapper {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.9rem;
+      font-size: 12px;
     }
-    .table th, .table td {
-      padding: 0.4rem 0.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+
+    thead {
+      background: linear-gradient(to right, rgba(255,138,60,0.18), rgba(12,13,22,0.98));
+    }
+
+    th, td {
+      padding: 8px 10px;
       text-align: left;
       white-space: nowrap;
     }
-    .table th {
-      font-size: 0.8rem;
-      text-transform: uppercase;
+
+    th {
+      font-weight: 600;
+      color: var(--text-muted);
+      font-size: 11px;
       letter-spacing: 0.06em;
-      opacity: 0.8;
-    }
-    .badge {
-      display: inline-block;
-      padding: 0.2rem 0.5rem;
-      border-radius: 999px;
-      font-size: 0.7rem;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      background: rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .tabs {
-      display: inline-flex;
+
+    tbody tr:nth-child(every) {}
+
+    tbody tr:nth-child(odd) {
+      background: rgba(255,255,255,0.01);
+    }
+
+    tbody tr:hover {
+      background: rgba(255,255,255,0.03);
+    }
+
+    td {
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    td.team-col {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .team-name {
+      font-size: 12px;
+    }
+
+    .team-conf {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .streak-badge {
+      font-size: 11px;
+      padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 0.25rem;
-      margin-top: 0.75rem;
-      margin-bottom: 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      white-space: nowrap;
     }
-    .tab {
+
+    /* Podcast */
+
+    .podcast-wrapper {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+      gap: 14px;
+      align-items: center;
+    }
+
+    .podcast-copy-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .podcast-copy-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .podcast-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .podcast-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
+    }
+
+    iframe.spotify-player {
+      width: 100%;
+      min-height: 152px;
       border: none;
-      background: transparent;
-      color: inherit;
-      padding: 0.3rem 0.9rem;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      cursor: pointer;
+      border-radius: 14px;
     }
-    .tab.active {
-      background: rgba(255, 255, 255, 0.12);
-    }
-    footer {
-      padding: 2rem 1.5rem 3rem;
-      text-align: center;
-      font-size: 0.8rem;
-      opacity: 0.7;
-    }
-    a {
-      color: #ffae52;
-      text-decoration: none;
-    }
-    .team-logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 999px;
-      object-fit: contain;   /* komplettes Logo sichtbar */
-      background: #111;
-      flex-shrink: 0;
+
+    /* Responsive */
+
+    @media (max-width: 768px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero-badge {
+        order: -1;
+      }
+      .podcast-wrapper {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 4px;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- HERO + PODCAST -->
   <header>
-    <main>
-      <div class="grid grid-2">
-        <div>
-          <p class="tag">Fantasy Brick Association</p>
-          <h1>FBA Hub – Season <span id="season-label">25/26</span></h1>
-          <p class="subtext">
-            Live-Standings, Power Ranking, Rekorde und mehr – alles auf einen Blick.
-          </p>
-          <div class="pill-row">
-            <span class="pill">Aktuelle Woche: <span id="current-week-label">?</span></span>
-            <span class="pill">Champion: <span id="current-champion-label">?</span></span>
-            <span class="pill">Letztes Update: <span id="last-update-label">–</span></span>
-          </div>
-        </div>
-        <div>
-          <div class="card">
-            <span class="tag">Podcast</span>
-            <h3 id="podcast-title">The Howling Wolf – aktuelle Folge</h3>
-            <p class="subtext">
-              Wöchentlicher FBA-Talk, Power Rankings und maximaler Trashtalk – direkt aus dem Wolfbau.
-            </p>
-            <div style="margin-top:0.75rem; font-size:0.85rem; opacity:0.8;">
-              <div id="podcast-embed-wrapper" style="display:none;">
-                <iframe
-                  id="podcast-embed"
-                  src=""
-                  width="100%"
-                  height="152"
-                  frameborder="0"
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                  loading="lazy"
-                ></iframe>
-              </div>
-              <div id="podcast-fallback">
-                <a id="podcast-link" href="#" target="_blank">In Spotify öffnen</a>
-              </div>
-            </div>
-          </div>
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-logo">F</div>
+        <div class="brand-text">
+          <div class="brand-title">Fantasy Brick Association</div>
+          <div class="brand-subtitle">FBA Hub • Live Insights</div>
         </div>
       </div>
-    </main>
+      <nav class="nav">
+        <a href="#live-dashboard">Live Dashboard</a>
+        <a href="#standings">Standings</a>
+        <a href="#power-ranking">Power Ranking</a>
+        <a href="#streaks">Serien</a>
+        <a href="#hof">Hall of Fame</a>
+        <a href="#podcast">Podcast</a>
+      </nav>
+    </div>
   </header>
 
-  <main>
-    <!-- LIVE DASHBOARD -->
-    <section id="live-dashboard">
-      <h2>Live Dashboard</h2>
-      <p class="subtext">Schneller Überblick über die aktuelle Lage in der FBA.</p>
-      <div class="grid grid-3" style="margin-top:1rem;">
-        <div class="card">
-          <span class="tag">Beste Bilanz</span>
-          <div class="flex">
-            <img id="best-team-logo" class="team-logo" src="" alt="" style="display:none;">
-            <div>
-              <h3 id="best-team-name">–</h3>
-              <p class="subtext">
-                Siegquote: <span id="best-team-win-pct">–</span>
-              </p>
-            </div>
+  <div class="page">
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-text">
+          <div class="hero-kicker">Season 25/26 • Live</div>
+          <h1>FBA Hub – alle Zahlen deiner Liga auf einen Blick.</h1>
+          <p>
+            Tägliche Updates aus der Fantasy Brick Association: Standings, Power Ranking,
+            laufende Serien, All-Time-Rekorde und direkte Einbettung des offiziellen Podcasts.
+          </p>
+          <div class="hero-meta">
+            <span class="pill">8 Teams</span>
+            <span class="pill">Head-to-Head • 8 Punkte</span>
+            <span class="pill">Powered by Google Sheets</span>
           </div>
         </div>
-        <div class="card">
-          <span class="tag">Längste Siegesserie</span>
-          <div class="flex">
-            <img id="best-streak-win-logo" class="team-logo" src="" alt="" style="display:none;">
-            <div>
-              <h3 id="best-streak-win-team">–</h3>
-              <p class="subtext">
-                <span id="best-streak-win-label">–</span>
-              </p>
-            </div>
+        <div class="hero-badge">
+          <div class="hero-badge-title">Live Momentum</div>
+          <div class="hero-badge-highlight" id="hero-highlight-label">
+            Toronto Polar Bears führen die Liga.
+          </div>
+          <div style="margin-top:4px;font-size:11px;color:var(--text-muted);">
+            Basierend auf aktuellen Standings & Siegquoten – ohne Playoffs.
           </div>
         </div>
-        <div class="card">
-          <span class="tag">Längste Niederlagenserie</span>
-          <div class="flex">
-            <img id="best-streak-loss-logo" class="team-logo" src="" alt="" style="display:none;">
-            <div>
-              <h3 id="best-streak-loss-team">–</h3>
-              <p class="subtext">
-                <span id="best-streak-loss-label">–</span>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- POWER RANKING -->
-    <section id="power-ranking-section">
-      <div class="flex-between">
-        <div>
-          <h2>Power Ranking</h2>
-          <p class="subtext">Klassisch und als Power Ranking+ – tagesaktuell gedacht.</p>
+      <!-- LIVE DASHBOARD -->
+      <section id="live-dashboard">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Live Dashboard</div>
+            <div class="section-subtitle">Schneller Überblick über die aktuelle Lage in der FBA.</div>
+          </div>
+          <div class="section-tag">tägliches Update</div>
         </div>
-        <div class="tabs">
-          <button class="tab active" id="tab-pr">Power Ranking</button>
-          <button class="tab" id="tab-pr-plus">Power Ranking+</button>
-        </div>
-      </div>
+        <div class="card-row">
+          <!-- Beste Bilanz -->
+          <article class="card" id="card-best-record">
+            <div class="card-label">Beste Bilanz</div>
+            <div class="card-logo-row">
+              <img src="logos/Toronto Polar Bears.png" alt="" class="team-logo" id="best-record-logo">
+              <div>
+                <div class="card-title" id="best-record-team">Toronto Polar Bears</div>
+                <div class="card-meta" id="best-record-meta">Sieggquote: 66.1 %</div>
+              </div>
+            </div>
+          </article>
 
-      <div id="pr-classic">
-        <table class="table">
-          <thead>
+          <!-- Längste Siegesserie -->
+          <article class="card" id="card-win-streak">
+            <div class="card-label">Längste Siegesserie</div>
+            <div class="card-logo-row">
+              <img src="logos/BlackForest Mad Wolves.png" alt="" class="team-logo" id="win-streak-logo">
+              <div>
+                <div class="card-title" id="win-streak-team">BlackForest Mad Wolves</div>
+                <div class="card-meta" id="win-streak-meta">3-Siege-Serie</div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Längste Niederlagenserie -->
+          <article class="card" id="card-loss-streak">
+            <div class="card-label">Längste Niederlagenserie</div>
+            <div class="card-logo-row">
+              <img src="logos/East Bay Pirates.png" alt="" class="team-logo" id="loss-streak-logo">
+              <div>
+                <div class="card-title" id="loss-streak-team">East Bay Pirates</div>
+                <div class="card-meta" id="loss-streak-meta">1-Niederlage</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- STANDINGS -->
+      <section id="standings">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Standings – Regular Season</div>
+            <div class="section-subtitle">Offizielle Tabelle inkl. Siegquoten und Serien.</div>
+          </div>
+          <div class="section-tag">Quelle: Live Standings Sheet</div>
+        </div>
+        <div class="table-wrapper">
+          <table>
+            <thead>
             <tr>
               <th>#</th>
               <th>Team</th>
-              <th>Score</th>
-              <th>Stärken</th>
+              <th>Conf</th>
+              <th>W</th>
+              <th>L</th>
+              <th>Win%</th>
+              <th>Serie</th>
             </tr>
-          </thead>
-          <tbody id="pr-classic-body">
-            <tr><td colspan="4">Power Ranking folgt – Datenanbindung kommt später.</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div id="pr-plus" style="display:none;">
-        <table class="table">
-          <thead>
+            </thead>
+            <tbody id="standings-body">
             <tr>
-              <th>#</th>
-              <th>Team</th>
-              <th>Score+</th>
-              <th>Δ vs. PR</th>
+              <td colspan="7" style="padding:10px;font-size:12px;color:var(--text-muted);">
+                Lade Standings …
+              </td>
             </tr>
-          </thead>
-          <tbody id="pr-plus-body">
-            <tr><td colspan="4">Power Ranking+ folgt – Datenanbindung kommt später.</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- STANDINGS -->
-    <section id="standings-section">
-      <h2>Standings – Overall</h2>
-      <p class="subtext">
-        Aktuelle Tabelle der Fantasy Brick Association, inklusive Serien.
-      </p>
-      <table class="table" style="margin-top:0.75rem;">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th>Conf</th>
-            <th>S</th>
-            <th>N</th>
-            <th>U</th>
-            <th>%</th>
-            <th>Serie</th>
-          </tr>
-        </thead>
-        <tbody id="standings-body">
-          <tr><td colspan="8">Standings folgen – Datenanbindung kommt später.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- AKTUELLE WOCHE -->
-    <section id="current-week-section">
-      <h2>Aktuelle Woche – Matchups</h2>
-      <p class="subtext">
-        Die laufenden Duelle der Woche inkl. Zwischenständen und H2H-Bilanz.
-      </p>
-      <div class="grid grid-2" id="current-week-matchups" style="margin-top:1rem;">
-        <div class="card">
-          <span class="tag">Matchup</span>
-          <h3>Team A vs Team B</h3>
-          <p class="subtext">Zwischenstand: 4–4 (Platzhalter)</p>
-          <p class="subtext">H2H-Bilanz folgt nach Datenanbindung.</p>
+            </tbody>
+          </table>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- PLAYER PERFORMANCE OF THE WEEK -->
-    <section id="player-week-section">
-      <h2>Player Performance of the Week</h2>
-      <p class="subtext">Der dominanteste Spieler der aktuellen Fantasy-Woche.</p>
-      <div class="card" id="player-week-card" style="margin-top:1rem;">
-        <span class="tag">Woche</span>
-        <h3 id="player-week-name">–</h3>
-        <p class="subtext" id="player-week-team">Team – NBA – FBA</p>
-        <p class="subtext" id="player-week-stats">
-          Stats folgen, sobald die Daten angebunden sind.
-        </p>
-      </div>
-    </section>
+      <!-- POWER RANKING -->
+      <section id="power-ranking">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Power Ranking</div>
+            <div class="section-subtitle">Formstärke basierend auf den letzten Wochen – ohne Playoff-Bonus.</div>
+          </div>
+          <div class="section-tag">manueller Input (Sheet)</div>
+        </div>
+        <div class="card-row" id="power-ranking-cards">
+          <!-- Platzhalter – später mit Sheet verknüpfen -->
+          <article class="card card--muted">
+            <div class="card-label">#1</div>
+            <div class="card-title">BlackForest Mad Wolves</div>
+            <div class="card-meta">Unbesiegt in den letzten zwei Wochen – dominieren vor allem in Punkten & Assists.</div>
+          </article>
+          <article class="card card--muted">
+            <div class="card-label">#2</div>
+            <div class="card-title">East Bay Pirates</div>
+            <div class="card-meta">Starkes Comeback nach schwachem Start – Dreierfeuerwerk jede Woche.</div>
+          </article>
+          <article class="card card--muted">
+            <div class="card-label">#3</div>
+            <div class="card-title">Toronto Polar Bears</div>
+            <div class="card-meta">Stabilste Defense der Liga, Blocks & Steals on lock.</div>
+          </article>
+        </div>
+      </section>
 
-    <!-- PLAYER PERFORMANCE OF THE NIGHT -->
-    <section id="player-night-section">
-      <h2>Player Performance of the Night</h2>
-      <p class="subtext">Der Spieler der letzten Nacht mit der stärksten Line.</p>
-      <div class="card" id="player-night-card" style="margin-top:1rem;">
-        <span class="tag" id="player-night-date">Datum –</span>
-        <h3 id="player-night-name">–</h3>
-        <p class="subtext" id="player-night-team">Team – NBA – FBA</p>
-        <p class="subtext" id="player-night-stats">
-          Stats folgen, sobald die Daten angebunden sind.
-        </p>
-      </div>
-    </section>
+      <!-- STREAKS / SERIEN -->
+      <section id="streaks">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Aktuelle Serien</div>
+            <div class="section-subtitle">Siege und Niederlagen am Stück über die ganze Liga.</div>
+          </div>
+          <div class="section-tag">aus Standings ableitbar</div>
+        </div>
+        <div class="card-row" id="streaks-cards">
+          <!-- Wird aktuell indirekt schon über Standings gepflegt.
+               Optional später: eigene Sheet-Quelle -->
+          <article class="card card--muted">
+            <div class="card-label">Heißeste Teams</div>
+            <div class="card-title">3-Siege-Serien</div>
+            <div class="card-meta" id="streaks-hot">
+              BlackForest Mad Wolves • East Bay Pirates
+            </div>
+          </article>
+          <article class="card card--muted">
+            <div class="card-label">Kälteste Teams</div>
+            <div class="card-title">Niederlagenserien</div>
+            <div class="card-meta" id="streaks-cold">
+              Karlsruhe Unicorns mit 2-Niederlagen-Serie.
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <!-- SERIEN -->
-    <section id="streaks-section">
-      <h2>Aktuelle Serien</h2>
-      <p class="subtext">Wer rollt, wer struggelt – Siegesserien und Niederlagenserien.</p>
-      <div class="grid grid-2" style="margin-top:1rem;">
-        <div>
-          <h3>Siegesserien</h3>
-          <div id="streaks-win-list">
-            <p class="subtext">Serien folgen nach Datenanbindung.</p>
+      <!-- HALL OF FAME -->
+      <section id="hof">
+        <div class="section-header">
+          <div>
+            <div class="section-title">Hall of Fame</div>
+            <div class="section-subtitle">Champions & ewige Tabelle der FBA.</div>
+          </div>
+          <div class="section-tag">historische Daten</div>
+        </div>
+        <div class="card-row">
+          <article class="card card--muted">
+            <div class="card-label">Champions</div>
+            <div class="card-title">Titelträger 2020–2025</div>
+            <div class="card-meta">
+              2021 – Guardians of Rhinos<br>
+              2022 – Balingen Lions<br>
+              2023 – BlackForest Mad Wolves<br>
+              2024 – BlackForest Mad Wolves<br>
+              2025 – East Bay Pirates
+            </div>
+          </article>
+          <article class="card card--muted">
+            <div class="card-label">Ewige Tabelle</div>
+            <div class="card-title">Siege über alle Saisons</div>
+            <div class="card-meta" id="alltime-meta">
+              Kommt später direkt aus dem All-Time-Sheet – hier nur Platzhalter.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- PODCAST -->
+      <section id="podcast">
+        <div class="section-header">
+          <div>
+            <div class="section-title">FBA Podcast</div>
+            <div class="section-subtitle">Recaps, Power Rankings und Previews direkt auf die Ohren.</div>
+          </div>
+          <div class="section-tag">Spotify Embed</div>
+        </div>
+        <div class="podcast-wrapper">
+          <div>
+            <div class="podcast-copy-title">Der offizielle FBA-Podcast</div>
+            <div class="podcast-copy-text">
+              Wöchentliche Folgen mit Recap der letzten Woche, Power Ranking,
+              Performance Watch und Preview auf die kommenden Matchups – alles
+              aus Sicht der Manager.
+            </div>
+            <div class="podcast-badges">
+              <span class="podcast-badge">Hosted by BlackForest Mad Wolves</span>
+              <span class="podcast-badge">Spoiler: viel Mobbing</span>
+              <span class="podcast-badge">#HowlingWolf</span>
+            </div>
+          </div>
+          <div>
+            <!-- Spotify-Player: ersetze die src-URL durch deinen Podcast-Link -->
+            <iframe
+              class="spotify-player"
+              src="https://open.spotify.com/embed/show/DEIN_SPOTIFY_SHOW_ID"
+              loading="lazy"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            ></iframe>
           </div>
         </div>
-        <div>
-          <h3>Niederlagenserien</h3>
-          <div id="streaks-loss-list">
-            <p class="subtext">Serien folgen nach Datenanbindung.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- REKORDE -->
-    <section id="records-section">
-      <h2>Rekord-Center</h2>
-      <p class="subtext">Ewige Wochen- und Stat-Rekorde – Season 25/26 und All-Time.</p>
-      <div class="tabs">
-        <button class="tab active" id="tab-records-season">Season 25/26</button>
-        <button class="tab" id="tab-records-alltime">All-Time</button>
-      </div>
-      <div id="records-season">
-        <div class="grid grid-3" id="records-season-grid">
-          <div class="card">
-            <span class="tag">Platzhalter</span>
-            <h3>Team – Punkte-Bereich</h3>
-            <p class="subtext">Rekordwerte folgen nach Datenanbindung.</p>
-          </div>
-        </div>
-      </div>
-      <div id="records-alltime" style="display:none;">
-        <div class="grid grid-3" id="records-alltime-grid">
-          <div class="card">
-            <span class="tag">Platzhalter</span>
-            <h3>Team – Punkte-Bereich</h3>
-            <p class="subtext">All-Time-Rekorde folgen nach Datenanbindung.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- EWIGE TABELLE -->
-    <section id="alltime-table-section">
-      <h2>Ewige Tabelle</h2>
-      <p class="subtext">
-        All-Time-Bilanz aller Teams in der FBA – inklusive Titel und Finals.
-      </p>
-      <table class="table" style="margin-top:0.75rem;">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th>S</th>
-            <th>N</th>
-            <th>U</th>
-            <th>%</th>
-            <th>Titel</th>
-            <th>Finals</th>
-          </tr>
-        </thead>
-        <tbody id="alltime-table-body">
-          <tr><td colspan="8">Ewige Tabelle folgt nach Datenanbindung.</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- HALL OF FAME -->
-    <section id="hall-of-fame-section">
-      <h2>Hall of Fame – Champions</h2>
-      <p class="subtext">Alle Meister der FBA in der Übersicht.</p>
-      <div class="grid grid-3" id="champions-grid" style="margin-top:1rem;">
-        <div class="card">
-          <span class="tag">Platzhalter</span>
-          <h3>Season – Champion</h3>
-          <p class="subtext">Champion-Historie folgt nach Datenanbindung.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>Fantasy Brick Association – inoffizielles FBA-Headquarter.</p>
-    <p>Website im Aufbau – Datenanbindung an FBA_LIVE_25_26 folgt.</p>
-  </footer>
+      </section>
+    </main>
+  </div>
 
   <script>
-    (function () {
-      // --- Konfiguration: CSV-Quellen ---
-      const SETTINGS_CSV_URL =
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv';
+    // === KONFIG: hier deine Google-Sheets-CSV-Links eintragen ===
+    // Standings (Overall_Standings): CSV-Link
+    const STANDINGS_CSV_URL = "HIER_DEIN_STANDINGS_CSV_LINK";
 
-      const STANDINGS_CSV_URL =
-        'https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv';
+    // Live Dashboard (beste Bilanz + Serien)
+    const DASHBOARD_CSV_URL = "HIER_DEIN_DASHBOARD_CSV_LINK";
+    // Erwartete Spalten dort z.B.:
+    // best_team, best_win_pct, best_logo, win_streak_team, win_streak_label, win_streak_logo,
+    // loss_streak_team, loss_streak_label, loss_streak_logo, hero_highlight
 
-      // --- Logo-Mapping ---
-      const TEAM_LOGO_PATH = './logos/';
-      const TEAM_LOGOS = {
-        'BlackForest Mad Wolves': 'bfm.png',
-        'East Bay Pirates': 'pirates.png',
-        'Karlsruhe Unicorns': 'unicorns.png',
-        'Guardians of Rhinos': 'rhinos.png',
-        'Wild Cheetahs': 'cheetahs.png',
-        'Toronto Polar Bears': 'bears.png',
-        'Dormettingen Eagles': 'eagles.png',
-        'Balingen Lions': 'lions.png'
-      };
+    // Logo-Mapping (Dateinamen müssen in /logos liegen)
+    const LOGO_MAP = {
+      "Toronto Polar Bears": "logos/Toronto Polar Bears.png",
+      "BlackForest Mad Wolves": "logos/BlackForest Mad Wolves.png",
+      "Blackforest Mad Wolves": "logos/BlackForest Mad Wolves.png",
+      "East Bay Pirates": "logos/East Bay Pirates.png",
+      "Karlsruhe Unicorns": "logos/Karlsruhe Unicorns.png",
+      "Guardians of Rhinos": "logos/Guardians of Rhinos.png",
+      "Wild Cheetahs": "logos/Wild Cheetahs.png",
+      "Dormettingen Eagles": "logos/Dormettingen Eagles.png",
+      "Balingen Lions": "logos/Balingen Lions.png"
+    };
 
-      function setTeamLogo(imgId, teamName) {
-        const img = document.getElementById(imgId);
-        if (!img) return;
-        const file = TEAM_LOGOS[teamName];
-        if (!file) {
-          img.style.display = 'none';
-          return;
-        }
-        img.src = TEAM_LOGO_PATH + file;
-        img.alt = teamName + ' Logo';
-        img.style.display = 'block';
-      }
+    function getLogo(teamName) {
+      return LOGO_MAP[teamName] || "logos/default.png";
+    }
 
-      // --- Tabs: Power Ranking ---
-      const tabPr = document.getElementById('tab-pr');
-      const tabPrPlus = document.getElementById('tab-pr-plus');
-      const prClassic = document.getElementById('pr-classic');
-      const prPlus = document.getElementById('pr-plus');
+    // === CSV-Helper ===
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const header = lines[0].split(",").map(h => h.trim());
+      return lines.slice(1).map(line => {
+        const cols = line.split(",").map(c => c.trim());
+        const obj = {};
+        header.forEach((h, i) => { obj[h] = cols[i]; });
+        return obj;
+      });
+    }
 
-      if (tabPr && tabPrPlus && prClassic && prPlus) {
-        tabPr.addEventListener('click', () => {
-          tabPr.classList.add('active');
-          tabPrPlus.classList.remove('active');
-          prClassic.style.display = 'block';
-          prPlus.style.display = 'none';
+    // === Standings laden ===
+    async function loadStandings() {
+      if (!STANDINGS_CSV_URL.startsWith("http")) return;
+
+      try {
+        const res = await fetch(STANDINGS_CSV_URL);
+        const text = await res.text();
+        const rows = parseCsv(text);
+
+        const tbody = document.getElementById("standings-body");
+        tbody.innerHTML = "";
+
+        rows.forEach((row, index) => {
+          const tr = document.createElement("tr");
+
+          const tdRank = document.createElement("td");
+          tdRank.textContent = index + 1;
+
+          const tdTeam = document.createElement("td");
+          tdTeam.className = "team-col";
+          const img = document.createElement("img");
+          img.className = "team-logo";
+          img.src = getLogo(row.team_name || row.Team || "");
+          img.alt = "";
+          const nameWrap = document.createElement("div");
+          const spanName = document.createElement("div");
+          spanName.className = "team-name";
+          spanName.textContent = row.team_name || row.Team || "";
+          const spanConf = document.createElement("div");
+          spanConf.className = "team-conf";
+          spanConf.textContent = row.conf || row.Conf || "";
+          nameWrap.appendChild(spanName);
+          nameWrap.appendChild(spanConf);
+          tdTeam.appendChild(img);
+          tdTeam.appendChild(nameWrap);
+
+          const tdConf = document.createElement("td");
+          tdConf.textContent = row.conf || row.Conf || "";
+
+          const tdW = document.createElement("td");
+          tdW.textContent = row.W || row.Wins || "";
+
+          const tdL = document.createElement("td");
+          tdL.textContent = row.L || row.Losses || "";
+
+          const tdPct = document.createElement("td");
+          tdPct.textContent = row.win_pct ? row.win_pct : (row.WinPct || "");
+
+          const tdStreak = document.createElement("td");
+          tdStreak.className = "streak-badge";
+          tdStreak.textContent = row.streak_label || row.streak || "";
+
+          tr.appendChild(tdRank);
+          tr.appendChild(tdTeam);
+          tr.appendChild(tdConf);
+          tr.appendChild(tdW);
+          tr.appendChild(tdL);
+          tr.appendChild(tdPct);
+          tr.appendChild(tdStreak);
+
+          tbody.appendChild(tr);
         });
-        tabPrPlus.addEventListener('click', () => {
-          tabPrPlus.classList.add('active');
-          tabPr.classList.remove('active');
-          prClassic.style.display = 'none';
-          prPlus.style.display = 'block';
-        });
+      } catch (err) {
+        console.error("Standings-Load-Error:", err);
+        const tbody = document.getElementById("standings-body");
+        tbody.innerHTML =
+          '<tr><td colspan="7" style="padding:10px;font-size:12px;color:var(--text-muted);">Fehler beim Laden der Standings.</td></tr>';
       }
+    }
 
-      // --- Tabs: Rekorde ---
-      const tabRecSeason = document.getElementById('tab-records-season');
-      const tabRecAlltime = document.getElementById('tab-records-alltime');
-      const recSeason = document.getElementById('records-season');
-      const recAlltime = document.getElementById('records-alltime');
+    // === Live Dashboard laden ===
+    async function loadDashboard() {
+      if (!DASHBOARD_CSV_URL.startsWith("http")) return;
+      try {
+        const res = await fetch(DASHBOARD_CSV_URL);
+        const text = await res.text();
+        const rows = parseCsv(text);
+        if (!rows.length) return;
+        const row = rows[0];
 
-      if (tabRecSeason && tabRecAlltime && recSeason && recAlltime) {
-        tabRecSeason.addEventListener('click', () => {
-          tabRecSeason.classList.add('active');
-          tabRecAlltime.classList.remove('active');
-          recSeason.style.display = 'block';
-          recAlltime.style.display = 'none';
-        });
-        tabRecAlltime.addEventListener('click', () => {
-          tabRecAlltime.classList.add('active');
-          tabRecSeason.classList.remove('active');
-          recSeason.style.display = 'none';
-          recAlltime.style.display = 'block';
-        });
-      }
-
-      // --- Helper: CSV -> Array von Objekten ---
-      function parseCsv(text) {
-        const lines = text.trim().split('\n').filter(l => l.trim().length > 0);
-        if (lines.length === 0) return [];
-        const headers = lines[0].split(',').map(h => h.trim());
-        const rows = [];
-        for (let i = 1; i < lines.length; i++) {
-          const raw = lines[i];
-          if (!raw.trim()) continue;
-          const parts = raw.split(',');
-          const obj = {};
-          headers.forEach((h, idx) => {
-            obj[h] = (parts[idx] || '').trim();
-          });
-          rows.push(obj);
+        // Hero
+        if (row.hero_highlight) {
+          document.getElementById("hero-highlight-label").textContent = row.hero_highlight;
         }
-        return rows;
+
+        // Beste Bilanz
+        document.getElementById("best-record-team").textContent = row.best_team || "";
+        document.getElementById("best-record-meta").textContent =
+          row.best_win_pct ? `Sieggquote: ${row.best_win_pct}` : "";
+        document.getElementById("best-record-logo").src = getLogo(row.best_team || "");
+
+        // Siegesserie
+        document.getElementById("win-streak-team").textContent = row.win_streak_team || "";
+        document.getElementById("win-streak-meta").textContent = row.win_streak_label || "";
+        document.getElementById("win-streak-logo").src = getLogo(row.win_streak_team || "");
+
+        // Niederlagenserie
+        document.getElementById("loss-streak-team").textContent = row.loss_streak_team || "";
+        document.getElementById("loss-streak-meta").textContent = row.loss_streak_label || "";
+        document.getElementById("loss-streak-logo").src = getLogo(row.loss_streak_team || "");
+      } catch (err) {
+        console.error("Dashboard-Load-Error:", err);
       }
+    }
 
-      // --- Settings laden ---
-      async function loadSettings() {
-        try {
-          const res = await fetch(SETTINGS_CSV_URL);
-          if (!res.ok) {
-            console.error('Fehler beim Laden der Settings:', res.status);
-            return;
-          }
-          const text = await res.text();
-
-          const lines = text.trim().split('\n');
-          const settings = {};
-          for (const line of lines) {
-            if (!line.trim()) continue;
-            const parts = line.split(',');
-            const key = (parts[0] || '').trim();
-            const value = parts.slice(1).join(',').trim();
-            if (key) {
-              settings[key] = value;
-            }
-          }
-
-          if (settings.current_season) {
-            const seasonEl = document.getElementById('season-label');
-            if (seasonEl) seasonEl.textContent = settings.current_season;
-          }
-
-          if (settings.current_week) {
-            const weekEl = document.getElementById('current-week-label');
-            if (weekEl) weekEl.textContent = settings.current_week;
-          }
-
-          if (settings.last_update) {
-            const updateEl = document.getElementById('last-update-label');
-            if (updateEl) updateEl.textContent = settings.last_update;
-          }
-
-          if (settings.podcast_title) {
-            const podcastTitleEl = document.getElementById('podcast-title');
-            if (podcastTitleEl) podcastTitleEl.textContent = settings.podcast_title;
-          }
-
-          if (settings.podcast_url) {
-            const podcastLinkEl = document.getElementById('podcast-link');
-            if (podcastLinkEl) {
-              podcastLinkEl.href = settings.podcast_url;
-            }
-          }
-
-          if (settings.podcast_embed_src) {
-            const iframe = document.getElementById('podcast-embed');
-            const wrapper = document.getElementById('podcast-embed-wrapper');
-            const fallback = document.getElementById('podcast-fallback');
-
-            if (iframe && wrapper) {
-              iframe.src = settings.podcast_embed_src;
-              wrapper.style.display = 'block';
-              if (fallback) fallback.style.display = 'none';
-            }
-          }
-        } catch (err) {
-          console.error('Fehler beim Laden der Settings:', err);
-        }
-      }
-
-      // --- Standings laden ---
-      function parseStreakValue(label) {
-        if (!label) return 0;
-        const m = label.match(/(\d+)/);
-        const n = m ? parseInt(m[1], 10) : 0;
-        const lower = label.toLowerCase();
-        if (lower.includes('niederlage')) return -n;
-        if (lower.includes('verlust')) return -n;
-        if (lower.includes('siege') || lower.includes('sieg')) return n;
-        return 0;
-      }
-
-      async function loadStandings() {
-        try {
-          const res = await fetch(STANDINGS_CSV_URL);
-          if (!res.ok) {
-            console.error('Fehler beim Laden der Standings:', res.status);
-            return;
-          }
-          const text = await res.text();
-          const rows = parseCsv(text);
-          const tbody = document.getElementById('standings-body');
-          if (!tbody) return;
-
-          tbody.innerHTML = '';
-
-          let rank = 1;
-          let bestTeam = null;
-          let bestWinPct = -1;
-          let bestWinStreak = null;
-          let bestWinStreakValue = 0;
-          let bestLossStreak = null;
-          let bestLossStreakValue = 0;
-
-          rows.forEach(row => {
-            const team = row.team_name || '';
-            const conf = row.conf || '';
-            const W = row.W ? parseInt(row.W, 10) : 0;
-            const L = row.L ? parseInt(row.L, 10) : 0;
-            const winPct = row.win_pct ? parseFloat(row.win_pct) : 0;
-            const streakLabel = row.streak_label || '';
-            const U = 0;
-
-            const tr = document.createElement('tr');
-
-            const tdRank = document.createElement('td');
-            tdRank.textContent = rank.toString();
-            tr.appendChild(tdRank);
-
-            const tdTeam = document.createElement('td');
-            tdTeam.textContent = team;
-            tr.appendChild(tdTeam);
-
-            const tdConf = document.createElement('td');
-            tdConf.textContent = conf;
-            tr.appendChild(tdConf);
-
-            const tdW = document.createElement('td');
-            tdW.textContent = W.toString();
-            tr.appendChild(tdW);
-
-            const tdL = document.createElement('td');
-            tdL.textContent = L.toString();
-            tr.appendChild(tdL);
-
-            const tdT = document.createElement('td');
-            tdT.textContent = U.toString();
-            tr.appendChild(tdT);
-
-            const tdPct = document.createElement('td');
-            tdPct.textContent = winPct > 0 ? (winPct * 100).toFixed(1) + '%' : '0.0%';
-            tr.appendChild(tdPct);
-
-            const tdStreak = document.createElement('td');
-            tdStreak.textContent = streakLabel || '–';
-            tr.appendChild(tdStreak);
-
-            tbody.appendChild(tr);
-
-            if (winPct > bestWinPct) {
-              bestWinPct = winPct;
-              bestTeam = team;
-            }
-
-            const streakValue = parseStreakValue(streakLabel);
-            if (streakValue > bestWinStreakValue) {
-              bestWinStreakValue = streakValue;
-              bestWinStreak = { team, label: streakLabel };
-            }
-            if (streakValue < bestLossStreakValue) {
-              bestLossStreakValue = streakValue;
-              bestLossStreak = { team, label: streakLabel };
-            }
-
-            rank++;
-          });
-
-          if (bestTeam !== null) {
-            const bestTeamNameEl = document.getElementById('best-team-name');
-            const bestTeamPctEl = document.getElementById('best-team-win-pct');
-            if (bestTeamNameEl) bestTeamNameEl.textContent = bestTeam;
-            if (bestTeamPctEl && bestWinPct >= 0) {
-              bestTeamPctEl.textContent = (bestWinPct * 100).toFixed(1) + '%';
-            }
-            setTeamLogo('best-team-logo', bestTeam);
-          }
-
-          if (bestWinStreak && bestWinStreakValue > 0) {
-            const winTeamEl = document.getElementById('best-streak-win-team');
-            const winLabelEl = document.getElementById('best-streak-win-label');
-            if (winTeamEl) winTeamEl.textContent = bestWinStreak.team;
-            if (winLabelEl) winLabelEl.textContent = bestWinStreak.label;
-            setTeamLogo('best-streak-win-logo', bestWinStreak.team);
-          }
-
-          if (bestLossStreak && bestLossStreakValue < 0) {
-            const lossTeamEl = document.getElementById('best-streak-loss-team');
-            const lossLabelEl = document.getElementById('best-streak-loss-label');
-            if (lossTeamEl) lossTeamEl.textContent = bestLossStreak.team;
-            if (lossLabelEl) lossLabelEl.textContent = bestLossStreak.label;
-            setTeamLogo('best-streak-loss-logo', bestLossStreak.team);
-          }
-
-          const streaksWinList = document.getElementById('streaks-win-list');
-          const streaksLossList = document.getElementById('streaks-loss-list');
-          if (streaksWinList && streaksLossList) {
-            streaksWinList.innerHTML = '';
-            streaksLossList.innerHTML = '';
-
-            rows.forEach(row => {
-              const team = row.team_name || '';
-              const streakLabel = row.streak_label || '';
-              const val = parseStreakValue(streakLabel);
-              if (!val) return;
-              const p = document.createElement('p');
-              p.className = 'subtext';
-              p.textContent = team + ' – ' + streakLabel;
-
-              if (val > 0) {
-                streaksWinList.appendChild(p);
-              } else if (val < 0) {
-                streaksLossList.appendChild(p);
-              }
-            });
-
-            if (!streaksWinList.innerHTML.trim()) {
-              streaksWinList.innerHTML = '<p class="subtext">Keine aktiven Siegesserien.</p>';
-            }
-            if (!streaksLossList.innerHTML.trim()) {
-              streaksLossList.innerHTML = '<p class="subtext">Keine aktiven Niederlagenserien.</p>';
-            }
-          }
-        } catch (err) {
-          console.error('Fehler beim Laden der Standings:', err);
-        }
-      }
-
-      loadSettings();
+    document.addEventListener("DOMContentLoaded", () => {
       loadStandings();
-    })();
+      loadDashboard();
+    });
   </script>
 </body>
 </html>
