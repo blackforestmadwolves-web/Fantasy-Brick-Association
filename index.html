@@ -10,7 +10,7 @@
       --bg-soft: #0e1018;
       --bg-card: #111320;
       --bg-card-soft: #171a2b;
-      --accent: #ff8a3c; /* FBA-Orange */
+      --accent: #ff8a3c;
       --accent-soft: rgba(255,138,60,0.12);
       --text-main: #f5f5ff;
       --text-muted: #a3a7c2;
@@ -33,14 +33,13 @@
       background: radial-gradient(circle at top, #171a2b 0, #05060b 45%, #020308 100%);
       color: var(--text-main);
       min-height: 100vh;
+      font-size: 15px;
     }
 
     a {
       color: inherit;
       text-decoration: none;
     }
-
-    /* Layout */
 
     .page {
       max-width: var(--max-width);
@@ -73,15 +72,15 @@
     }
 
     .brand-logo {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: radial-gradient(circle at 30% 20%, #fff, #ffd6b4 25%, #ff8a3c 55%, #4b1c0b 100%);
       box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       color: #1b0b03;
     }
@@ -89,25 +88,25 @@
     .brand-text {
       display: flex;
       flex-direction: column;
-      gap: 1px;
+      gap: 2px;
     }
 
     .brand-title {
-      font-size: 15px;
+      font-size: 16px;
       font-weight: 700;
       letter-spacing: 0.03em;
       text-transform: uppercase;
     }
 
     .brand-subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
     .nav {
       display: flex;
       gap: 10px;
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
@@ -116,7 +115,11 @@
       border-radius: 999px;
       border: 1px solid transparent;
       cursor: pointer;
-      transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform 80ms ease-out;
+      transition:
+        background var(--transition-fast),
+        color var(--transition-fast),
+        border-color var(--transition-fast),
+        transform 80ms ease-out;
       white-space: nowrap;
     }
 
@@ -139,76 +142,106 @@
       margin-bottom: 32px;
     }
 
-    /* Hero */
+    /* HERO mit Podcast rechts */
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
       gap: 22px;
-      align-items: center;
+      align-items: stretch;
       margin-bottom: 28px;
     }
 
     .hero-text h1 {
-      font-size: clamp(26px, 4vw, 32px);
-      margin-bottom: 8px;
+      font-size: clamp(28px, 4.4vw, 34px);
+      margin-bottom: 10px;
     }
 
     .hero-kicker {
-      font-size: 11px;
+      font-size: 12px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .hero-text p {
       font-size: 14px;
       color: var(--text-muted);
-      max-width: 460px;
+      max-width: 480px;
+      line-height: 1.4;
     }
 
     .hero-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     .pill {
-      font-size: 11px;
+      font-size: 12px;
       padding: 4px 9px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
       background: linear-gradient(135deg, rgba(255,138,60,0.14), rgba(255,138,60,0.04));
       color: var(--accent);
     }
 
-    .hero-badge {
-      position: relative;
-      padding: 12px 14px;
+    /* Podcast-Karte */
+
+    .podcast-hero {
+      background: var(--bg-card);
       border-radius: var(--radius-xl);
-      background: radial-gradient(circle at top left, rgba(255,138,60,0.24), rgba(12,14,22,0.98));
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid var(--border-subtle);
       box-shadow: var(--shadow-soft);
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .podcast-hero-label {
       font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+    }
+
+    .podcast-hero-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .podcast-hero-text {
+      font-size: 13px;
       color: var(--text-muted);
     }
 
-    .hero-badge-title {
-      font-size: 13px;
-      color: var(--text-main);
-      font-weight: 600;
-      margin-bottom: 4px;
+    .podcast-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 4px;
     }
 
-    .hero-badge-highlight {
-      font-size: 13px;
-      color: var(--accent);
-      font-weight: 600;
+    .podcast-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.03);
+      color: var(--text-muted);
     }
 
-    /* Sektionen allgemein */
+    iframe.spotify-player {
+      width: 100%;
+      min-height: 160px;
+      border: none;
+      border-radius: 14px;
+    }
+
+    /* Sektionen */
 
     .section-header {
       display: flex;
@@ -219,19 +252,19 @@
     }
 
     .section-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
     }
 
     .section-subtitle {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
     .section-tag {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--accent);
-      padding: 2px 8px;
+      padding: 3px 9px;
       border-radius: 999px;
       border: 1px solid rgba(255,138,60,0.5);
       background: rgba(255,138,60,0.08);
@@ -264,7 +297,7 @@
     }
 
     .card-label {
-      font-size: 11px;
+      font-size: 12px;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -277,7 +310,7 @@
     }
 
     .card-meta {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--text-muted);
     }
 
@@ -298,6 +331,74 @@
       flex-shrink: 0;
     }
 
+    /* Matchups */
+
+    .matchups-wrapper {
+      background: var(--bg-card);
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+
+    .matchups-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 6px;
+      gap: 8px;
+    }
+
+    .matchups-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .matchups-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .matchup-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .matchup-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .matchup-row:last-child {
+      border-bottom: none;
+    }
+
+    .matchup-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .matchup-proj {
+      font-size: 12px;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .matchup-tag {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
     /* Tabelle Standings */
 
     .table-wrapper {
@@ -311,7 +412,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12px;
+      font-size: 13px;
     }
 
     thead {
@@ -333,8 +434,6 @@
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
 
-    tbody tr:nth-child(every) {}
-
     tbody tr:nth-child(odd) {
       background: rgba(255,255,255,0.01);
     }
@@ -354,16 +453,16 @@
     }
 
     .team-name {
-      font-size: 12px;
+      font-size: 13px;
     }
 
     .team-conf {
-      font-size: 10px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     .streak-badge {
-      font-size: 11px;
+      font-size: 12px;
       padding: 2px 6px;
       border-radius: 999px;
       background: rgba(255,255,255,0.04);
@@ -371,64 +470,8 @@
       white-space: nowrap;
     }
 
-    /* Podcast */
-
-    .podcast-wrapper {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 14px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
-      gap: 14px;
-      align-items: center;
-    }
-
-    .podcast-copy-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .podcast-copy-text {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-    }
-
-    .podcast-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .podcast-badge {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
-      color: var(--text-muted);
-    }
-
-    iframe.spotify-player {
-      width: 100%;
-      min-height: 152px;
-      border: none;
-      border-radius: 14px;
-    }
-
-    /* Responsive */
-
     @media (max-width: 768px) {
       .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .hero-badge {
-        order: -1;
-      }
-      .podcast-wrapper {
         grid-template-columns: minmax(0, 1fr);
       }
       .topbar {
@@ -445,412 +488,428 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="topbar">
-      <div class="brand">
-        <div class="brand-logo">F</div>
-        <div class="brand-text">
-          <div class="brand-title">Fantasy Brick Association</div>
-          <div class="brand-subtitle">FBA Hub • Live Insights</div>
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-logo">F</div>
+      <div class="brand-text">
+        <div class="brand-title">Fantasy Brick Association</div>
+        <div class="brand-subtitle">FBA Hub • Live Insights</div>
+      </div>
+    </div>
+    <nav class="nav">
+      <a href="#live-dashboard">Live</a>
+      <a href="#standings">Standings</a>
+      <a href="#power-ranking">Power Ranking</a>
+      <a href="#hof">Hall of Fame</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page">
+  <main>
+    <!-- HERO mit Podcast rechts -->
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-kicker">Season 25/26 • Live</div>
+        <h1>FBA Hub – alle Zahlen und der Podcast auf einen Blick.</h1>
+        <p>
+          Tägliche Updates aus der Fantasy Brick Association: Standings, Power Ranking,
+          laufende Serien, All-Time-Rekorde und der offizielle FBA-Podcast direkt eingebettet.
+        </p>
+        <div class="hero-meta">
+          <span class="pill">8 Teams</span>
+          <span class="pill">Head-to-Head • 8 Punkte</span>
+          <span class="pill">Datenbasis: Google Sheets</span>
         </div>
       </div>
-      <nav class="nav">
-        <a href="#live-dashboard">Live Dashboard</a>
-        <a href="#standings">Standings</a>
-        <a href="#power-ranking">Power Ranking</a>
-        <a href="#streaks">Serien</a>
-        <a href="#hof">Hall of Fame</a>
-        <a href="#podcast">Podcast</a>
-      </nav>
-    </div>
-  </header>
-
-  <div class="page">
-    <main>
-      <!-- HERO -->
-      <section class="hero">
-        <div class="hero-text">
-          <div class="hero-kicker">Season 25/26 • Live</div>
-          <h1>FBA Hub – alle Zahlen deiner Liga auf einen Blick.</h1>
-          <p>
-            Tägliche Updates aus der Fantasy Brick Association: Standings, Power Ranking,
-            laufende Serien, All-Time-Rekorde und direkte Einbettung des offiziellen Podcasts.
-          </p>
-          <div class="hero-meta">
-            <span class="pill">8 Teams</span>
-            <span class="pill">Head-to-Head • 8 Punkte</span>
-            <span class="pill">Powered by Google Sheets</span>
-          </div>
+      <aside class="podcast-hero">
+        <div class="podcast-hero-label">Offizieller FBA-Podcast</div>
+        <div class="podcast-hero-title">The Howling Wolf &amp; Friends</div>
+        <div class="podcast-hero-text">
+          Recaps, Power Rankings und Previews – inklusive gepflegtem Mobbing zwischen den Managern.
         </div>
-        <div class="hero-badge">
-          <div class="hero-badge-title">Live Momentum</div>
-          <div class="hero-badge-highlight" id="hero-highlight-label">
-            Toronto Polar Bears führen die Liga.
-          </div>
-          <div style="margin-top:4px;font-size:11px;color:var(--text-muted);">
-            Basierend auf aktuellen Standings & Siegquoten – ohne Playoffs.
-          </div>
+        <div class="podcast-badges">
+          <span class="podcast-badge">
+            <a href="https://open.spotify.com/episode/5IFryO5ElCtLA9zNtCT2bf" target="_blank" rel="noopener noreferrer">
+              Auf Spotify öffnen
+            </a>
+          </span>
+          <span class="podcast-badge">Hosted by BlackForest Mad Wolves</span>
+          <span class="podcast-badge">Wöchentliche Folgen</span>
         </div>
-      </section>
+        <div>
+          <!-- Dein Spotify-Embed -->
+          <iframe
+            class="spotify-player"
+            src="https://open.spotify.com/embed/episode/5IFryO5ElCtLA9zNtCT2bf?"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          ></iframe>
+        </div>
+      </aside>
+    </section>
 
-      <!-- LIVE DASHBOARD -->
-      <section id="live-dashboard">
-        <div class="section-header">
+    <!-- LIVE DASHBOARD -->
+    <section id="live-dashboard">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Live Dashboard</div>
+          <div class="section-subtitle">Aktuelle Lage in der FBA – Matchups, Prognosen &amp; Hot Teams.</div>
+        </div>
+        <div class="section-tag">tägliches Update</div>
+      </div>
+
+      <!-- Aktuelle Matchups + Prognose -->
+      <div class="matchups-wrapper">
+        <div class="matchups-header-row">
           <div>
-            <div class="section-title">Live Dashboard</div>
-            <div class="section-subtitle">Schneller Überblick über die aktuelle Lage in der FBA.</div>
-          </div>
-          <div class="section-tag">tägliches Update</div>
-        </div>
-        <div class="card-row">
-          <!-- Beste Bilanz -->
-          <article class="card" id="card-best-record">
-            <div class="card-label">Beste Bilanz</div>
-            <div class="card-logo-row">
-              <img src="logos/Toronto Polar Bears.png" alt="" class="team-logo" id="best-record-logo">
-              <div>
-                <div class="card-title" id="best-record-team">Toronto Polar Bears</div>
-                <div class="card-meta" id="best-record-meta">Sieggquote: 66.1 %</div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Längste Siegesserie -->
-          <article class="card" id="card-win-streak">
-            <div class="card-label">Längste Siegesserie</div>
-            <div class="card-logo-row">
-              <img src="logos/BlackForest Mad Wolves.png" alt="" class="team-logo" id="win-streak-logo">
-              <div>
-                <div class="card-title" id="win-streak-team">BlackForest Mad Wolves</div>
-                <div class="card-meta" id="win-streak-meta">3-Siege-Serie</div>
-              </div>
-            </div>
-          </article>
-
-          <!-- Längste Niederlagenserie -->
-          <article class="card" id="card-loss-streak">
-            <div class="card-label">Längste Niederlagenserie</div>
-            <div class="card-logo-row">
-              <img src="logos/East Bay Pirates.png" alt="" class="team-logo" id="loss-streak-logo">
-              <div>
-                <div class="card-title" id="loss-streak-team">East Bay Pirates</div>
-                <div class="card-meta" id="loss-streak-meta">1-Niederlage</div>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- STANDINGS -->
-      <section id="standings">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Standings – Regular Season</div>
-            <div class="section-subtitle">Offizielle Tabelle inkl. Siegquoten und Serien.</div>
-          </div>
-          <div class="section-tag">Quelle: Live Standings Sheet</div>
-        </div>
-        <div class="table-wrapper">
-          <table>
-            <thead>
-            <tr>
-              <th>#</th>
-              <th>Team</th>
-              <th>Conf</th>
-              <th>W</th>
-              <th>L</th>
-              <th>Win%</th>
-              <th>Serie</th>
-            </tr>
-            </thead>
-            <tbody id="standings-body">
-            <tr>
-              <td colspan="7" style="padding:10px;font-size:12px;color:var(--text-muted);">
-                Lade Standings …
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- POWER RANKING -->
-      <section id="power-ranking">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Power Ranking</div>
-            <div class="section-subtitle">Formstärke basierend auf den letzten Wochen – ohne Playoff-Bonus.</div>
-          </div>
-          <div class="section-tag">manueller Input (Sheet)</div>
-        </div>
-        <div class="card-row" id="power-ranking-cards">
-          <!-- Platzhalter – später mit Sheet verknüpfen -->
-          <article class="card card--muted">
-            <div class="card-label">#1</div>
-            <div class="card-title">BlackForest Mad Wolves</div>
-            <div class="card-meta">Unbesiegt in den letzten zwei Wochen – dominieren vor allem in Punkten & Assists.</div>
-          </article>
-          <article class="card card--muted">
-            <div class="card-label">#2</div>
-            <div class="card-title">East Bay Pirates</div>
-            <div class="card-meta">Starkes Comeback nach schwachem Start – Dreierfeuerwerk jede Woche.</div>
-          </article>
-          <article class="card card--muted">
-            <div class="card-label">#3</div>
-            <div class="card-title">Toronto Polar Bears</div>
-            <div class="card-meta">Stabilste Defense der Liga, Blocks & Steals on lock.</div>
-          </article>
-        </div>
-      </section>
-
-      <!-- STREAKS / SERIEN -->
-      <section id="streaks">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Aktuelle Serien</div>
-            <div class="section-subtitle">Siege und Niederlagen am Stück über die ganze Liga.</div>
-          </div>
-          <div class="section-tag">aus Standings ableitbar</div>
-        </div>
-        <div class="card-row" id="streaks-cards">
-          <!-- Wird aktuell indirekt schon über Standings gepflegt.
-               Optional später: eigene Sheet-Quelle -->
-          <article class="card card--muted">
-            <div class="card-label">Heißeste Teams</div>
-            <div class="card-title">3-Siege-Serien</div>
-            <div class="card-meta" id="streaks-hot">
-              BlackForest Mad Wolves • East Bay Pirates
-            </div>
-          </article>
-          <article class="card card--muted">
-            <div class="card-label">Kälteste Teams</div>
-            <div class="card-title">Niederlagenserien</div>
-            <div class="card-meta" id="streaks-cold">
-              Karlsruhe Unicorns mit 2-Niederlagen-Serie.
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- HALL OF FAME -->
-      <section id="hof">
-        <div class="section-header">
-          <div>
-            <div class="section-title">Hall of Fame</div>
-            <div class="section-subtitle">Champions & ewige Tabelle der FBA.</div>
-          </div>
-          <div class="section-tag">historische Daten</div>
-        </div>
-        <div class="card-row">
-          <article class="card card--muted">
-            <div class="card-label">Champions</div>
-            <div class="card-title">Titelträger 2020–2025</div>
-            <div class="card-meta">
-              2021 – Guardians of Rhinos<br>
-              2022 – Balingen Lions<br>
-              2023 – BlackForest Mad Wolves<br>
-              2024 – BlackForest Mad Wolves<br>
-              2025 – East Bay Pirates
-            </div>
-          </article>
-          <article class="card card--muted">
-            <div class="card-label">Ewige Tabelle</div>
-            <div class="card-title">Siege über alle Saisons</div>
-            <div class="card-meta" id="alltime-meta">
-              Kommt später direkt aus dem All-Time-Sheet – hier nur Platzhalter.
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <!-- PODCAST -->
-      <section id="podcast">
-        <div class="section-header">
-          <div>
-            <div class="section-title">FBA Podcast</div>
-            <div class="section-subtitle">Recaps, Power Rankings und Previews direkt auf die Ohren.</div>
-          </div>
-          <div class="section-tag">Spotify Embed</div>
-        </div>
-        <div class="podcast-wrapper">
-          <div>
-            <div class="podcast-copy-title">Der offizielle FBA-Podcast</div>
-            <div class="podcast-copy-text">
-              Wöchentliche Folgen mit Recap der letzten Woche, Power Ranking,
-              Performance Watch und Preview auf die kommenden Matchups – alles
-              aus Sicht der Manager.
-            </div>
-            <div class="podcast-badges">
-              <span class="podcast-badge">Hosted by BlackForest Mad Wolves</span>
-              <span class="podcast-badge">Spoiler: viel Mobbing</span>
-              <span class="podcast-badge">#HowlingWolf</span>
+            <div class="matchups-title">Aktuell laufende Matchups</div>
+            <div class="matchups-sub">
+              Live-Score &amp; Prognose, wie das Duell voraussichtlich ausgeht.
             </div>
           </div>
-          <div>
-            <!-- Spotify-Player: ersetze die src-URL durch deinen Podcast-Link -->
-            <iframe
-              class="spotify-player"
-              src="https://open.spotify.com/embed/show/DEIN_SPOTIFY_SHOW_ID"
-              loading="lazy"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            ></iframe>
+          <div class="matchup-tag">Reguläre Saison • Woche n</div>
+        </div>
+        <div id="matchups-container" class="matchup-list">
+          <div style="font-size:13px;color:var(--text-muted);">
+            Lade laufende Matchups …
           </div>
         </div>
-      </section>
-    </main>
-  </div>
+      </div>
 
-  <script>
-    // === KONFIG: hier deine Google-Sheets-CSV-Links eintragen ===
-// Standings (Overall_Standings): CSV-Link
-const STANDINGS_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv";
+      <!-- Beste Bilanz & Serien -->
+      <div class="card-row">
+        <article class="card" id="card-best-record">
+          <div class="card-label">Beste Bilanz</div>
+          <div class="card-logo-row">
+            <img src="logos/Toronto Polar Bears.png" alt="" class="team-logo" id="best-record-logo">
+            <div>
+              <div class="card-title" id="best-record-team">Toronto Polar Bears</div>
+              <div class="card-meta" id="best-record-meta">Sieggquote: 66.1 %</div>
+            </div>
+          </div>
+        </article>
 
-// Live Dashboard (Settings-Tab mit bester Bilanz & Serien)
-const DASHBOARD_CSV_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv";
-    // Erwartete Spalten dort z.B.:
-    // best_team, best_win_pct, best_logo, win_streak_team, win_streak_label, win_streak_logo,
-    // loss_streak_team, loss_streak_label, loss_streak_logo, hero_highlight
+        <article class="card" id="card-win-streak">
+          <div class="card-label">Längste Siegesserie</div>
+          <div class="card-logo-row">
+            <img src="logos/BlackForest Mad Wolves.png" alt="" class="team-logo" id="win-streak-logo">
+            <div>
+              <div class="card-title" id="win-streak-team">BlackForest Mad Wolves</div>
+              <div class="card-meta" id="win-streak-meta">3-Siege-Serie</div>
+            </div>
+          </div>
+        </article>
 
-    // Logo-Mapping (Dateinamen müssen in /logos liegen)
-    const LOGO_MAP = {
-      "Toronto Polar Bears": "logos/Toronto Polar Bears.png",
-      "BlackForest Mad Wolves": "logos/BlackForest Mad Wolves.png",
-      "Blackforest Mad Wolves": "logos/BlackForest Mad Wolves.png",
-      "East Bay Pirates": "logos/East Bay Pirates.png",
-      "Karlsruhe Unicorns": "logos/Karlsruhe Unicorns.png",
-      "Guardians of Rhinos": "logos/Guardians of Rhinos.png",
-      "Wild Cheetahs": "logos/Wild Cheetahs.png",
-      "Dormettingen Eagles": "logos/Dormettingen Eagles.png",
-      "Balingen Lions": "logos/Balingen Lions.png"
-    };
+        <article class="card" id="card-loss-streak">
+          <div class="card-label">Längste Niederlagenserie</div>
+          <div class="card-logo-row">
+            <img src="logos/East Bay Pirates.png" alt="" class="team-logo" id="loss-streak-logo">
+            <div>
+              <div class="card-title" id="loss-streak-team">East Bay Pirates</div>
+              <div class="card-meta" id="loss-streak-meta">1-Niederlage</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    function getLogo(teamName) {
-      return LOGO_MAP[teamName] || "logos/default.png";
-    }
+    <!-- STANDINGS -->
+    <section id="standings">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Standings – Regular Season</div>
+          <div class="section-subtitle">Offizielle Tabelle inkl. Siegquoten und laufender Serien.</div>
+        </div>
+        <div class="section-tag">Quelle: Live Standings Sheet</div>
+      </div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+          <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th>Conf</th>
+            <th>W</th>
+            <th>L</th>
+            <th>Win%</th>
+            <th>Serie</th>
+          </tr>
+          </thead>
+          <tbody id="standings-body">
+          <tr>
+            <td colspan="7" style="padding:10px;font-size:13px;color:var(--text-muted);">
+              Lade Standings …
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-    // === CSV-Helper ===
-    function parseCsv(text) {
-      const lines = text.trim().split(/\r?\n/);
-      const header = lines[0].split(",").map(h => h.trim());
-      return lines.slice(1).map(line => {
-        const cols = line.split(",").map(c => c.trim());
-        const obj = {};
-        header.forEach((h, i) => { obj[h] = cols[i]; });
-        return obj;
+    <!-- POWER RANKING -->
+    <section id="power-ranking">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Power Ranking</div>
+          <div class="section-subtitle">Formkurve der Teams – basierend auf den letzten Wochen.</div>
+        </div>
+        <div class="section-tag">manueller Input (Sheet)</div>
+      </div>
+      <div class="card-row" id="power-ranking-cards">
+        <!-- Platzhalter – später an Power-Ranking-Sheet hängen -->
+        <article class="card card--muted">
+          <div class="card-label">#1</div>
+          <div class="card-title">BlackForest Mad Wolves</div>
+          <div class="card-meta">Dominant in Punkten &amp; Assists – ungeschlagen in den letzten Wochen.</div>
+        </article>
+        <article class="card card--muted">
+          <div class="card-label">#2</div>
+          <div class="card-title">East Bay Pirates</div>
+          <div class="card-meta">Dreier-Feuerwerk und stabile Rebounds – klar auf dem Vormarsch.</div>
+        </article>
+        <article class="card card--muted">
+          <div class="card-label">#3</div>
+          <div class="card-title">Toronto Polar Bears</div>
+          <div class="card-meta">Defensiv stark: Steals &amp; Blocks im oberen Bereich.</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- HALL OF FAME & EWIGE TABELLE -->
+    <section id="hof">
+      <div class="section-header">
+        <div>
+          <div class="section-title">Hall of Fame &amp; Ewige Tabelle</div>
+          <div class="section-subtitle">Titelträger und All-Time-Bilanz der FBA.</div>
+        </div>
+        <div class="section-tag">historische Daten</div>
+      </div>
+      <div class="card-row">
+        <article class="card card--muted">
+          <div class="card-label">Champions</div>
+          <div class="card-title">Titelträger 2020–2025</div>
+          <div class="card-meta">
+            2021 – Guardians of Rhinos<br>
+            2022 – Balingen Lions<br>
+            2023 – BlackForest Mad Wolves<br>
+            2024 – BlackForest Mad Wolves<br>
+            2025 – East Bay Pirates
+          </div>
+        </article>
+        <article class="card card--muted">
+          <div class="card-label">Ewige Tabelle</div>
+          <div class="card-title">Siege über alle Saisons</div>
+          <div class="card-meta" id="alltime-meta">
+            Kommt später direkt aus dem All-Time-Sheet – aktuell Platzhalter.
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+  // === KONFIG: Google-Sheets-CSV-Links ===
+
+  // Standings (Tab: standings_live)
+  const STANDINGS_CSV_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv";
+
+  // Dashboard (Tab: settings)
+  const DASHBOARD_CSV_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv";
+
+  // Matchups (Tab: matchups_live)
+  const MATCHUPS_CSV_URL =
+    "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=478155593&single=true&output=csv";
+
+  // Logo-Pfad: logos/<Teamname>.png
+  function getLogo(teamName) {
+    if (!teamName) return "logos/default.png";
+    return "logos/" + teamName + ".png"; // Dateiname = Teamname
+  }
+
+  // CSV-Parser mit automatischer Trennzeichen-Erkennung (, oder ;)
+  function parseCsv(text) {
+    const lines = text.trim().split(/\r?\n/);
+    if (!lines.length) return [];
+
+    const headerLine = lines[0];
+    const commaCount = (headerLine.match(/,/g) || []).length;
+    const semiCount = (headerLine.match(/;/g) || []).length;
+    const delimiter = semiCount > commaCount ? ";" : ",";
+
+    const header = headerLine.split(delimiter).map(h => h.trim());
+
+    return lines.slice(1).map(line => {
+      if (!line.trim()) return {};
+      const cols = line.split(delimiter).map(c => c.trim());
+      const obj = {};
+      header.forEach((h, i) => {
+        obj[h] = cols[i] !== undefined ? cols[i] : "";
       });
-    }
-
-    // === Standings laden ===
-    async function loadStandings() {
-      if (!STANDINGS_CSV_URL.startsWith("http")) return;
-
-      try {
-        const res = await fetch(STANDINGS_CSV_URL);
-        const text = await res.text();
-        const rows = parseCsv(text);
-
-        const tbody = document.getElementById("standings-body");
-        tbody.innerHTML = "";
-
-        rows.forEach((row, index) => {
-          const tr = document.createElement("tr");
-
-          const tdRank = document.createElement("td");
-          tdRank.textContent = index + 1;
-
-          const tdTeam = document.createElement("td");
-          tdTeam.className = "team-col";
-          const img = document.createElement("img");
-          img.className = "team-logo";
-          img.src = getLogo(row.team_name || row.Team || "");
-          img.alt = "";
-          const nameWrap = document.createElement("div");
-          const spanName = document.createElement("div");
-          spanName.className = "team-name";
-          spanName.textContent = row.team_name || row.Team || "";
-          const spanConf = document.createElement("div");
-          spanConf.className = "team-conf";
-          spanConf.textContent = row.conf || row.Conf || "";
-          nameWrap.appendChild(spanName);
-          nameWrap.appendChild(spanConf);
-          tdTeam.appendChild(img);
-          tdTeam.appendChild(nameWrap);
-
-          const tdConf = document.createElement("td");
-          tdConf.textContent = row.conf || row.Conf || "";
-
-          const tdW = document.createElement("td");
-          tdW.textContent = row.W || row.Wins || "";
-
-          const tdL = document.createElement("td");
-          tdL.textContent = row.L || row.Losses || "";
-
-          const tdPct = document.createElement("td");
-          tdPct.textContent = row.win_pct ? row.win_pct : (row.WinPct || "");
-
-          const tdStreak = document.createElement("td");
-          tdStreak.className = "streak-badge";
-          tdStreak.textContent = row.streak_label || row.streak || "";
-
-          tr.appendChild(tdRank);
-          tr.appendChild(tdTeam);
-          tr.appendChild(tdConf);
-          tr.appendChild(tdW);
-          tr.appendChild(tdL);
-          tr.appendChild(tdPct);
-          tr.appendChild(tdStreak);
-
-          tbody.appendChild(tr);
-        });
-      } catch (err) {
-        console.error("Standings-Load-Error:", err);
-        const tbody = document.getElementById("standings-body");
-        tbody.innerHTML =
-          '<tr><td colspan="7" style="padding:10px;font-size:12px;color:var(--text-muted);">Fehler beim Laden der Standings.</td></tr>';
-      }
-    }
-
-    // === Live Dashboard laden ===
-    async function loadDashboard() {
-      if (!DASHBOARD_CSV_URL.startsWith("http")) return;
-      try {
-        const res = await fetch(DASHBOARD_CSV_URL);
-        const text = await res.text();
-        const rows = parseCsv(text);
-        if (!rows.length) return;
-        const row = rows[0];
-
-        // Hero
-        if (row.hero_highlight) {
-          document.getElementById("hero-highlight-label").textContent = row.hero_highlight;
-        }
-
-        // Beste Bilanz
-        document.getElementById("best-record-team").textContent = row.best_team || "";
-        document.getElementById("best-record-meta").textContent =
-          row.best_win_pct ? `Sieggquote: ${row.best_win_pct}` : "";
-        document.getElementById("best-record-logo").src = getLogo(row.best_team || "");
-
-        // Siegesserie
-        document.getElementById("win-streak-team").textContent = row.win_streak_team || "";
-        document.getElementById("win-streak-meta").textContent = row.win_streak_label || "";
-        document.getElementById("win-streak-logo").src = getLogo(row.win_streak_team || "");
-
-        // Niederlagenserie
-        document.getElementById("loss-streak-team").textContent = row.loss_streak_team || "";
-        document.getElementById("loss-streak-meta").textContent = row.loss_streak_label || "";
-        document.getElementById("loss-streak-logo").src = getLogo(row.loss_streak_team || "");
-      } catch (err) {
-        console.error("Dashboard-Load-Error:", err);
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      loadStandings();
-      loadDashboard();
+      return obj;
     });
-  </script>
+  }
+
+  // Standings laden
+  async function loadStandings() {
+    if (!STANDINGS_CSV_URL.startsWith("http")) return;
+
+    try {
+      const res = await fetch(STANDINGS_CSV_URL);
+      const text = await res.text();
+      const rows = parseCsv(text);
+
+      const tbody = document.getElementById("standings-body");
+      tbody.innerHTML = "";
+
+      rows.forEach((row, index) => {
+        const tr = document.createElement("tr");
+
+        const tdRank = document.createElement("td");
+        tdRank.textContent = index + 1;
+
+        const tdTeam = document.createElement("td");
+        tdTeam.className = "team-col";
+        const img = document.createElement("img");
+        img.className = "team-logo";
+        const teamName = row.team_name || row.Team || "";
+        img.src = getLogo(teamName);
+        img.alt = "";
+        const nameWrap = document.createElement("div");
+        const spanName = document.createElement("div");
+        spanName.className = "team-name";
+        spanName.textContent = teamName;
+        const spanConf = document.createElement("div");
+        spanConf.className = "team-conf";
+        spanConf.textContent = row.conf || row.Conf || "";
+        nameWrap.appendChild(spanName);
+        nameWrap.appendChild(spanConf);
+        tdTeam.appendChild(img);
+        tdTeam.appendChild(nameWrap);
+
+        const tdConf = document.createElement("td");
+        tdConf.textContent = row.conf || row.Conf || "";
+
+        const tdW = document.createElement("td");
+        tdW.textContent = row.W || row.Wins || "";
+
+        const tdL = document.createElement("td");
+        tdL.textContent = row.L || row.Losses || "";
+
+        const tdPct = document.createElement("td");
+        tdPct.textContent = row.win_pct ? row.win_pct : (row.WinPct || "");
+
+        const tdStreak = document.createElement("td");
+        tdStreak.className = "streak-badge";
+        tdStreak.textContent = row.streak_label || row.streak || "";
+
+        tr.appendChild(tdRank);
+        tr.appendChild(tdTeam);
+        tr.appendChild(tdConf);
+        tr.appendChild(tdW);
+        tr.appendChild(tdL);
+        tr.appendChild(tdPct);
+        tr.appendChild(tdStreak);
+
+        tbody.appendChild(tr);
+      });
+    } catch (err) {
+      console.error("Standings-Load-Error:", err);
+      const tbody = document.getElementById("standings-body");
+      tbody.innerHTML =
+        '<tr><td colspan="7" style="padding:10px;font-size:13px;color:var(--text-muted);">Fehler beim Laden der Standings.</td></tr>';
+    }
+  }
+
+  // Live Dashboard (beste Bilanz + Serien)
+  async function loadDashboard() {
+    if (!DASHBOARD_CSV_URL.startsWith("http")) return;
+    try {
+      const res = await fetch(DASHBOARD_CSV_URL);
+      const text = await res.text();
+      const rows = parseCsv(text);
+      if (!rows.length) return;
+      const row = rows[0];
+
+      // Beste Bilanz
+      const bestTeam = row.best_team || "";
+      document.getElementById("best-record-team").textContent = bestTeam;
+      document.getElementById("best-record-meta").textContent =
+        row.best_win_pct ? `Sieggquote: ${row.best_win_pct}` : "";
+      document.getElementById("best-record-logo").src = getLogo(bestTeam);
+
+      // Siegesserie
+      const winTeam = row.win_streak_team || "";
+      document.getElementById("win-streak-team").textContent = winTeam;
+      document.getElementById("win-streak-meta").textContent = row.win_streak_label || "";
+      document.getElementById("win-streak-logo").src = getLogo(winTeam);
+
+      // Niederlagenserie
+      const lossTeam = row.loss_streak_team || "";
+      document.getElementById("loss-streak-team").textContent = lossTeam;
+      document.getElementById("loss-streak-meta").textContent = row.loss_streak_label || "";
+      document.getElementById("loss-streak-logo").src = getLogo(lossTeam);
+    } catch (err) {
+      console.error("Dashboard-Load-Error:", err);
+    }
+  }
+
+  // Matchups + Prognose laden (matchups_live: away_team, home_team, score, projection)
+  async function loadMatchups() {
+    if (!MATCHUPS_CSV_URL.startsWith("http")) return;
+    const container = document.getElementById("matchups-container");
+
+    try {
+      const res = await fetch(MATCHUPS_CSV_URL);
+      const text = await res.text();
+      const rows = parseCsv(text);
+      container.innerHTML = "";
+
+      if (!rows.length) {
+        container.innerHTML =
+          '<div style="font-size:13px;color:var(--text-muted);">Keine laufenden Matchups eingetragen.</div>';
+        return;
+      }
+
+      rows.forEach(row => {
+        const div = document.createElement("div");
+        div.className = "matchup-row";
+
+        const left = document.createElement("div");
+        left.className = "matchup-label";
+
+        const away = row.away_team || "";
+        const home = row.home_team || "";
+        const score = row.score ? ` • Score: ${row.score}` : "";
+
+        left.textContent = `${away} @ ${home}${score}`;
+
+        const right = document.createElement("div");
+        right.className = "matchup-proj";
+        right.textContent = row.projection
+          ? `Prognose: ${row.projection}`
+          : "";
+
+        div.appendChild(left);
+        div.appendChild(right);
+        container.appendChild(div);
+      });
+    } catch (err) {
+      console.error("Matchups-Load-Error:", err);
+      container.innerHTML =
+        '<div style="font-size:13px;color:var(--text-muted);">Fehler beim Laden der Matchups.</div>';
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    loadStandings();
+    loadDashboard();
+    loadMatchups();
+  });
+</script>
 </body>
 </html>
