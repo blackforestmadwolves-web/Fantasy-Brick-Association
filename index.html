@@ -2,952 +2,710 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FBA Hub – Fantasy Brick Association</title>
+
   <style>
     :root{
       --bg:#05060a;
-      --panel:#0b0f17;
-      --card:#0f1420;
-      --card2:#0c111b;
-      --text:#eef2ff;
-      --muted:#a7b0c4;
+      --panel:#0c1020;
+      --card:#0b0f1a;
+      --card2:#0a0e18;
       --border:rgba(255,255,255,.08);
-      --shadow: 0 20px 60px rgba(0,0,0,.55);
-      --radius:18px;
+      --text:#f5f7ff;
+      --muted:rgba(245,247,255,.65);
 
-      /* gedämpftes FBA-Orange */
-      --accent:#ff8a2a;
-      --accent2:#ffb067;
+      /* Orange: bewusst gedämpft */
+      --accent:#f08a2a;
+      --accentSoft: rgba(240,138,42,.28);
+      --accentSoft2: rgba(240,138,42,.18);
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
 
-      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --radius: 22px;
+      --radius-sm: 14px;
 
-      /* Schrift minimal größer */
-      --base: 16.5px;
-      --h1: 34px;
-      --h2: 20px;
+      /* größere Schrift */
+      --base: 17px;
+      --h1: 28px;
+      --h2: 18px;
       --h3: 14px;
     }
 
-    *{ box-sizing:border-box; margin:0; padding:0; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box;margin:0;padding:0}
     body{
-      font-family: var(--font);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       font-size: var(--base);
       color: var(--text);
       background:
-        radial-gradient(900px 600px at 15% 0%, rgba(255,138,42,.18), transparent 60%),
-        radial-gradient(900px 600px at 85% 0%, rgba(255,176,103,.10), transparent 55%),
-        radial-gradient(1200px 800px at 50% 100%, rgba(120,90,255,.10), transparent 55%),
+        radial-gradient(900px 480px at 15% 10%, rgba(240,138,42,.10), rgba(0,0,0,0) 55%),
+        radial-gradient(900px 520px at 85% 30%, rgba(240,138,42,.08), rgba(0,0,0,0) 60%),
+        radial-gradient(1000px 700px at 50% 85%, rgba(80,120,255,.08), rgba(0,0,0,0) 60%),
         var(--bg);
+      min-height:100vh;
       padding: 22px;
       display:flex;
       justify-content:center;
     }
 
-    .page{ width:100%; max-width: 1240px; }
-    .stack{ display:flex; flex-direction:column; gap:16px; }
+    .page{width:100%;max-width:1180px;display:flex;flex-direction:column;gap:18px}
 
+    /* HERO */
     header.hero{
       position:relative;
-      border:1px solid var(--border);
-      border-radius: 22px;
-      overflow:hidden;
+      border-radius: 26px;
+      padding: 22px 22px;
+      border: 1px solid rgba(255,255,255,.10);
       box-shadow: var(--shadow);
+      overflow:hidden;
+
+      /* gedämpftes Orange, nicht „zu krass“ */
       background:
-        linear-gradient(135deg,
-          rgba(255,138,42,.16),
-          rgba(255,176,103,.06) 40%,
-          rgba(0,0,0,.0) 100%),
-        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+        radial-gradient(900px 400px at 10% 0%, rgba(240,138,42,.28), rgba(0,0,0,0) 55%),
+        linear-gradient(135deg, rgba(240,138,42,.22), rgba(20,10,10,.25) 40%, rgba(0,0,0,0) 80%),
+        rgba(10,12,18,.70);
+      backdrop-filter: blur(10px);
     }
 
-    .hero-inner{
-      display:grid;
-      grid-template-columns: 1.35fr .65fr;
-      gap: 16px;
-      padding: 22px;
-      align-items: start;
-    }
+    .heroRow{display:grid;grid-template-columns: 1.2fr .9fr; gap:18px; align-items:stretch}
+    .heroLeft{display:flex;flex-direction:column;gap:10px}
+    .heroTitle{font-size: var(--h1); font-weight: 900; letter-spacing:.6px}
+    .heroSub{color: var(--muted); line-height:1.35}
 
-    .brand h1{
-      font-size: var(--h1);
-      letter-spacing: .2px;
-      line-height:1.12;
-      margin-bottom: 10px;
-    }
-    .brand p{
-      color: var(--muted);
-      line-height: 1.4;
-      max-width: 64ch;
-    }
-
-    .pill-row{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top: 14px;
-    }
-    .pill{
-      border: 1px solid var(--border);
-      background: rgba(0,0,0,.22);
-      padding: 8px 10px;
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+    .chip{
+      font-size: 12.5px;
+      color: rgba(255,255,255,.82);
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 5px 10px;
       border-radius: 999px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-    .pill strong{ color: var(--text); font-weight: 650; }
-
-    .podcast{
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.24);
-      border-radius: 18px;
-      padding: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.45);
-    }
-    .podcast-head{
-      display:flex; justify-content:space-between; align-items:center;
-      margin-bottom: 10px;
-    }
-    .podcast-head .title{
-      font-weight: 750;
-      letter-spacing: .2px;
-    }
-    .podcast-head a{
-      color: var(--accent2);
-      text-decoration: none;
-      font-weight: 650;
-      font-size: 13px;
-      border:1px solid rgba(255,176,103,.25);
-      padding:6px 10px;
-      border-radius: 999px;
-      background: rgba(255,138,42,.10);
-    }
-    .podcast iframe{
-      width:100%;
-      height: 152px;
-      border:0;
-      border-radius: 14px;
-      background: #0a0a0a;
+      background: rgba(0,0,0,.20);
     }
 
-    .grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    @media (min-width: 980px){
-      .grid{
-        grid-template-columns: 1.1fr .9fr;
-      }
-    }
-
-    .card{
-      border:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-
-    .card-inner{ padding: 18px; }
-    .card h2{
-      font-size: var(--h2);
-      margin-bottom: 6px;
-      letter-spacing: .2px;
-    }
-    .sub{
-      color: var(--muted);
-      margin-bottom: 14px;
-      line-height: 1.35;
-    }
-
-    .dash{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-    @media (min-width: 860px){
-      .dash{ grid-template-columns: 1fr 1fr 1fr; }
-    }
-
-    .mini{
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.22);
-      border-radius: 16px;
-      padding: 14px;
-      min-height: 104px;
+    /* Podcast Card */
+    .podCard{
+      border-radius: 20px;
+      border:1px solid rgba(255,255,255,.10);
+      background:
+        /* rechts oben nicht zu dunkel */
+        radial-gradient(700px 260px at 85% 0%, rgba(240,138,42,.14), rgba(0,0,0,0) 55%),
+        rgba(0,0,0,.20);
+      padding: 14px 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
       display:flex;
       flex-direction:column;
-      justify-content:space-between;
+      gap:10px;
+      min-height: 175px;
     }
-    .mini .label{
-      font-size: 12px;
-      letter-spacing: .9px;
-      text-transform: uppercase;
-      color: var(--muted);
+    .podHead{display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .podTitle{font-weight:800;font-size:14px}
+    .pill{
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(240,138,42,.10);
+      color: rgba(255,255,255,.85);
+      letter-spacing:.4px;
     }
-    .mini .row{
+    .podHint{font-size:12.5px;color: var(--muted); margin-top:-6px}
+
+    .podFrameWrap{
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.18);
+      flex:1;
+      min-height: 108px;
       display:flex;
-      align-items:center;
-      gap: 10px;
-      margin-top: 10px;
     }
-    .mini .team{
-      font-weight: 800;
-      font-size: 18px;
-      line-height: 1.1;
-    }
-    .mini .meta{
-      color: var(--muted);
-      margin-top: 4px;
-      font-size: 14px;
+    .podFrame{
+      width:100%;
+      height:100%;
+      border:0;
     }
 
-    .logo{
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      border:1px solid var(--border);
-      background: rgba(255,255,255,.06);
+    /* GRID */
+    .grid{display:grid;grid-template-columns: 1.2fr 1fr; gap:16px}
+    .card{
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(0,0,0,.10)), rgba(7,10,16,.72);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .cardHead{
       display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      padding: 16px 16px 12px;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .cardTitle{font-weight:900;font-size: var(--h2); letter-spacing:.2px}
+    .cardSub{font-size:13px;color: var(--muted); margin-top:2px}
+    .tag{
+      font-size:11px;
+      color: rgba(255,255,255,.85);
+      border:1px solid rgba(240,138,42,.35);
+      background: rgba(240,138,42,.10);
+      padding: 3px 8px;
+      border-radius: 999px;
+      letter-spacing:.5px;
+    }
+
+    /* tables */
+    .table{
+      width:100%;
+      border-collapse:collapse;
+    }
+    .table th, .table td{
+      padding: 10px 14px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      font-size: 14px;
+      vertical-align:middle;
+    }
+    .table th{
+      font-size: 12px;
+      color: rgba(245,247,255,.70);
+      text-transform:uppercase;
+      letter-spacing:.9px;
+      font-weight:800;
+    }
+    .rowFlex{display:flex;align-items:center;gap:10px}
+    .teamName{font-weight:800;line-height:1.1}
+    .muted{color: var(--muted)}
+    .right{text-align:right}
+    .center{text-align:center}
+
+    /* Logo */
+    .logo{
+      width:24px;height:24px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.25);
+      object-fit:cover;
+      flex:0 0 24px;
+    }
+    .fallbackLogo{
+      width:24px;height:24px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(240,138,42,.18);
+      display:inline-flex;
       align-items:center;
       justify-content:center;
-      overflow:hidden;
-      flex: 0 0 auto;
-    }
-    .logo img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display:block;
-    }
-    .logo .fallback{
-      font-weight: 850;
-      color: rgba(255,255,255,.85);
-      font-size: 12px;
-      letter-spacing: .6px;
+      font-weight:900;
+      font-size:12px;
+      color: rgba(255,255,255,.92);
+      flex:0 0 24px;
     }
 
-    table{
-      width:100%;
-      border-collapse: collapse;
-      font-size: 15px;
-    }
-    thead th{
-      text-align:left;
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 12px;
-      letter-spacing: .9px;
-      text-transform: uppercase;
-      padding: 10px 10px;
-      border-bottom: 1px solid var(--border);
-    }
-    tbody td{
-      padding: 12px 10px;
-      border-bottom: 1px solid rgba(255,255,255,.06);
-      vertical-align: middle;
-    }
-    tbody tr:hover{
-      background: rgba(255,255,255,.03);
-    }
-
-    .teamcell{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-    }
-
-    .muted{ color: var(--muted); }
-
-    .toolbar{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-bottom: 12px;
-    }
+    /* PR toggle */
     .toggle{
-      border:1px solid var(--border);
-      background: rgba(0,0,0,.22);
-      border-radius: 999px;
-      padding: 6px;
       display:flex;
-      gap: 6px;
-      align-items:center;
-    }
-    .btn{
-      cursor:pointer;
-      border:1px solid transparent;
-      background: transparent;
-      color: var(--muted);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-weight: 750;
-      font-size: 13px;
-      letter-spacing: .2px;
-    }
-    .btn.active{
-      color: var(--text);
-      border-color: rgba(255,176,103,.30);
-      background: rgba(255,138,42,.12);
-    }
-
-    .right-col{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-    }
-
-    .footer-note{
-      color: rgba(255,255,255,.45);
-      font-size: 12.5px;
-      margin-top: 2px;
-      padding: 0 2px 6px 2px;
-    }
-
-    .badge{
-      display:inline-flex;
       gap:8px;
       align-items:center;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,176,103,.22);
-      background: rgba(255,138,42,.10);
+    }
+    .toggle button{
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.20);
       color: rgba(255,255,255,.85);
-      font-size: 13px;
-      font-weight: 650;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight:900;
+      font-size: 12px;
+      letter-spacing:.3px;
+    }
+    .toggle button.active{
+      border-color: rgba(240,138,42,.55);
+      background: rgba(240,138,42,.14);
+      color: rgba(255,255,255,.95);
     }
 
-    .error{
-      border:1px solid rgba(255,80,80,.35);
-      background: rgba(255,80,80,.08);
-      padding: 10px 12px;
-      border-radius: 14px;
-      color: rgba(255,220,220,.95);
-      font-size: 14px;
+    /* mobile */
+    @media (max-width: 980px){
+      .heroRow{grid-template-columns: 1fr}
+      .grid{grid-template-columns: 1fr}
     }
   </style>
 </head>
 
 <body>
-  <div class="page stack">
+  <div class="page">
 
-    <!-- HERO + PODCAST -->
     <header class="hero">
-      <div class="hero-inner">
-        <div class="brand">
-          <h1>FBA Hub</h1>
-          <p>Schneller Überblick über die aktuelle Lage in der Fantasy Brick Association – Live Matchups, Live Standings und Power Rankings (PR / PR+).</p>
-
-          <div class="pill-row">
-            <div class="pill"><strong>Quelle:</strong> Google Sheets (CSV)</div>
-            <div class="pill"><strong>Update:</strong> Live beim Reload</div>
-            <div class="pill"><strong>Terminologie:</strong> Punkte (8)</div>
+      <div class="heroRow">
+        <div class="heroLeft">
+          <div class="heroTitle">FANTASY BRICK ASSOCIATION</div>
+          <div class="heroSub">FBA Hub – alle Zahlen, Serien und Power Rankings der Liga auf einen Blick.</div>
+          <div class="chips">
+            <div class="chip">Regular Season 25/26</div>
+            <div class="chip">Beste Bilanz: <span id="chipBest">–</span></div>
+            <div class="chip">Längste Serie: <span id="chipStreak">–</span></div>
           </div>
         </div>
 
-        <div class="podcast">
-          <div class="podcast-head">
-            <div class="title">Podcast</div>
-            <a id="podcastLink" href="#" target="_blank" rel="noopener">Open in Spotify</a>
+        <div class="podCard">
+          <div class="podHead">
+            <div class="podTitle">FBA Podcast – aktuelle Folge</div>
+            <div class="pill">PODCAST</div>
           </div>
-          <iframe
-            id="podcastFrame"
-            src="https://open.spotify.com/embed/episode/5IFryO5ElCtLA9zNtCT2bf?"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-            loading="lazy">
-          </iframe>
+          <div class="podHint">Direkt im Hub abspielbar.</div>
+          <div class="podFrameWrap">
+            <iframe
+              class="podFrame"
+              id="podFrame"
+              src="https://open.spotify.com/embed/episode/5IFryO5ElCtLA9zNtCT2bf?"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy"
+            ></iframe>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- LIVE DASHBOARD -->
-    <section class="card">
-      <div class="card-inner">
-        <h2>Live Dashboard</h2>
-        <div class="sub">Best-of-Kacheln aus den aktuellen Live Standings.</div>
-
-        <div class="dash" id="dashboardCards">
-          <!-- Filled by JS -->
-        </div>
-
-        <div class="footer-note" id="dashNote"></div>
-      </div>
-    </section>
-
-    <!-- MAIN GRID -->
     <section class="grid">
 
-      <!-- LEFT: MATCHUPS -->
+      <!-- LIVE MATCHUPS -->
       <div class="card">
-        <div class="card-inner">
-          <h2>Aktuell laufende Matchups</h2>
-          <div class="sub">Reihenfolge: Auswärts → Score → Heim → Prognose.</div>
-
-          <div id="matchupsError" class="error" style="display:none;"></div>
-
-          <div style="overflow:auto;">
-            <table>
-              <thead>
-                <tr>
-                  <th>Auswärts</th>
-                  <th>Score</th>
-                  <th>Heim</th>
-                  <th>Prognose</th>
-                </tr>
-              </thead>
-              <tbody id="matchupsBody"></tbody>
-            </table>
+        <div class="cardHead">
+          <div>
+            <div class="cardTitle">LIVE MATCHUPS</div>
+            <div class="cardSub">Auswärts | Score | Heim | Prognose</div>
           </div>
+          <div class="tag">LIVE</div>
+        </div>
 
-          <div class="footer-note">Hinweis: Wenn im Sheet „Auswärts“ fälschlich „Team A vs. Team B“ steht, wird automatisch gesplittet.</div>
+        <table class="table" id="matchupsTable">
+          <thead>
+            <tr>
+              <th>Auswärts</th>
+              <th class="center">Score</th>
+              <th>Heim</th>
+              <th class="right">Prognose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4" class="muted">Daten werden geladen …</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- POWER RANKING -->
+      <div class="card">
+        <div class="cardHead">
+          <div>
+            <div class="cardTitle">POWER RANKING</div>
+            <div class="cardSub">Switch zwischen PR und PR+ (Woche W-1)</div>
+          </div>
+          <div class="toggle">
+            <button id="btnPR" class="active" type="button">PR</button>
+            <button id="btnPRP" type="button">PR+</button>
+          </div>
+        </div>
+
+        <table class="table" id="prTable">
+          <thead>
+            <tr>
+              <th style="width:48px">#</th>
+              <th>Team</th>
+              <th class="right">Score</th>
+              <th class="right" id="deltaHead" style="display:none">Δ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4" class="muted">Daten werden geladen …</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- STANDINGS -->
+      <div class="card">
+        <div class="cardHead">
+          <div>
+            <div class="cardTitle">AKTUELLE TABELLE</div>
+            <div class="cardSub">Live-Standings inklusive Serien.</div>
+          </div>
+          <div class="tag">STANDINGS</div>
+        </div>
+
+        <table class="table" id="standingsTable">
+          <thead>
+            <tr>
+              <th style="width:48px">#</th>
+              <th>Team</th>
+              <th class="center">Bilanz</th>
+              <th class="right">W%</th>
+              <th class="right">Serie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="5" class="muted">Daten werden geladen …</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Roadmap -->
+      <div class="card">
+        <div class="cardHead">
+          <div>
+            <div class="cardTitle">COMING NEXT</div>
+            <div class="cardSub">Hall of Fame, Ewige Tabelle, Rekorde – als nächster Block.</div>
+          </div>
+          <div class="tag">ROADMAP</div>
+        </div>
+        <div style="padding:14px 16px;color:var(--muted);line-height:1.45">
+          Sobald PR & PR+ sauber live laufen, hängen wir die nächsten Export-Tabs dran.
         </div>
       </div>
 
-      <!-- RIGHT: STANDINGS + POWER RANKING TOGGLE -->
-      <div class="right-col">
-
-        <div class="card">
-          <div class="card-inner">
-            <h2>Live Standings</h2>
-            <div class="sub">Gesamtübersicht (Standings Overall).</div>
-
-            <div id="standingsError" class="error" style="display:none;"></div>
-
-            <div style="overflow:auto;">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Team</th>
-                    <th>Conf</th>
-                    <th>W</th>
-                    <th>L</th>
-                    <th>W%</th>
-                    <th>Serie</th>
-                  </tr>
-                </thead>
-                <tbody id="standingsBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-
-        <div class="card">
-          <div class="card-inner">
-            <h2>Power Ranking</h2>
-            <div class="sub">Toggle zwischen PR (klassisch) und PR+ (abstandsgewichtet).</div>
-
-            <div class="toolbar">
-              <div class="toggle">
-                <button class="btn active" id="btnPR" type="button">PR</button>
-                <button class="btn" id="btnPRP" type="button">PR+</button>
-              </div>
-              <span class="badge" id="prBadge">lädt …</span>
-            </div>
-
-            <div id="prError" class="error" style="display:none;"></div>
-
-            <div style="overflow:auto;">
-              <table>
-                <thead id="prHead"></thead>
-                <tbody id="prBody"></tbody>
-              </table>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
     </section>
-
   </div>
 
-  <script>
-    // ============
-    // CONFIG
-    // ============
+<script>
+  // =========================
+  // KONFIG (nur hier ändern)
+  // =========================
+  const URLS = {
+    matchups: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=478155593&single=true&output=csv",
+    standings: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv",
+    pr: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1192817047&single=true&output=csv",
+    prp: "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1541127392&single=true&output=csv"
+  };
 
-    // Podcast (hart gesetzt, wie von dir geliefert)
-    const PODCAST_URL = "https://open.spotify.com/episode/5IFryO5ElCtLA9zNtCT2bf";
-    const PODCAST_EMBED_SRC = "https://open.spotify.com/embed/episode/5IFryO5ElCtLA9zNtCT2bf?";
+  // =========================
+  // CSV Parser (robust genug)
+  // =========================
+  function parseCSV(text){
+    const rows = [];
+    let row = [];
+    let cur = "";
+    let inQuotes = false;
 
-    // CSV Quellen (von dir geliefert)
-    const MATCHUPS_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=478155593&single=true&output=csv";
+    for (let i=0; i<text.length; i++){
+      const c = text[i];
+      const n = text[i+1];
 
-    const STANDINGS_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv";
+      if (c === '"' && inQuotes && n === '"'){ cur += '"'; i++; continue; }
+      if (c === '"'){ inQuotes = !inQuotes; continue; }
 
-    const POWER_RANKING_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1192817047&single=true&output=csv";
+      if (!inQuotes && c === ","){
+        row.push(cur); cur=""; continue;
+      }
+      if (!inQuotes && (c === "\n" || c === "\r")){
+        if (c === "\r" && n === "\n") i++;
+        row.push(cur); cur="";
+        if (row.some(v => String(v).trim() !== "")) rows.push(row);
+        row = [];
+        continue;
+      }
+      cur += c;
+    }
+    row.push(cur);
+    if (row.some(v => String(v).trim() !== "")) rows.push(row);
 
-    const POWER_RANKING_PLUS_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1541127392&single=true&output=csv";
+    if (!rows.length) return [];
+    const headers = rows[0].map(h => String(h).trim());
+    return rows.slice(1).map(r=>{
+      const obj = {};
+      headers.forEach((h,idx)=> obj[h] = (r[idx] ?? "").trim());
+      return obj;
+    });
+  }
 
-    // Logos exakt passend zu deinem Repo /logos/*
-    const teamLogos = {
-      "Balingen Lions": "logos/Balingen Lions.png",
-      "BlackForest Mad Wolves": "logos/BlackForest Mad Wolves.png",
-      "Dormettingen Eagles": "logos/Dormettingen Eagles.png",
-      "East Bay Pirates": "logos/East Bay Pirates.png",
-      "Guardians of Rhinos": "logos/Guardians of Rhinos.png",
-      "Karlsruhe Unicorns": "logos/Karlsruhe Unicorns.png",
-      "Toronto Polar Bears": "logos/Toronto Polar Bears.png",
-      "Wild Cheetahs": "logos/Wild Cheetahs.png"
+  function normKey(k){
+    return String(k||"").trim().toLowerCase().replace(/\s+/g,"_");
+  }
+
+  function pick(obj, keys){
+    // keys: array of possible header names
+    for (const k of keys){
+      // direct
+      if (obj[k] !== undefined) return obj[k];
+      // normalized search
+      const nk = normKey(k);
+      for (const real in obj){
+        if (normKey(real) === nk) return obj[real];
+      }
+    }
+    return "";
+  }
+
+  // =========================
+  // Logos (mit Leerzeichen!)
+  // =========================
+  function logoUrl(team){
+    // Dateien heißen z.B. "BlackForest Mad Wolves.png"
+    // -> Spaces müssen encoded werden.
+    return "./logos/" + encodeURIComponent(team) + ".png";
+  }
+
+  function teamCell(team){
+    const wrap = document.createElement("div");
+    wrap.className = "rowFlex";
+
+    const img = document.createElement("img");
+    img.className = "logo";
+    img.src = logoUrl(team);
+    img.alt = team;
+
+    // fallback wenn Logo nicht lädt
+    img.onerror = () => {
+      const fb = document.createElement("span");
+      fb.className = "fallbackLogo";
+      fb.textContent = (team || "?").trim().slice(0,1).toUpperCase();
+      img.replaceWith(fb);
     };
 
-    // ============
-    // HELPERS
-    // ============
+    const name = document.createElement("div");
+    name.className = "teamName";
+    name.textContent = team;
 
-    function cacheBust(url){
-      const u = new URL(url);
-      u.searchParams.set("_ts", Date.now().toString());
-      return u.toString();
-    }
+    wrap.appendChild(img);
+    wrap.appendChild(name);
+    return wrap;
+  }
 
-    async function fetchText(url){
-      const res = await fetch(cacheBust(url), { cache: "no-store" });
-      if(!res.ok) throw new Error(`HTTP ${res.status} – ${url}`);
-      return await res.text();
-    }
+  // =========================
+  // LIVE MATCHUPS
+  // =========================
+  function splitIfCombined(str){
+    const s = String(str||"").trim();
+    // falls jemand "A vs. B" in away_team reinkopiert hat
+    const m = s.match(/^(.*?)\s+vs\.\s+(.*)$/i);
+    if (m) return { away: m[1].trim(), home: m[2].trim(), combined: true };
+    return { away: s, home: "", combined: false };
+  }
 
-    // simple CSV parser (handles commas, quotes, newlines)
-    function parseCSV(text){
-      const rows = [];
-      let row = [];
-      let cur = "";
-      let inQuotes = false;
+  async function loadMatchups(){
+    const table = document.querySelector("#matchupsTable tbody");
+    table.innerHTML = `<tr><td colspan="4" class="muted">Daten werden geladen …</td></tr>`;
 
-      for(let i=0; i<text.length; i++){
-        const c = text[i];
-        const n = text[i+1];
+    const res = await fetch(URLS.matchups, { cache: "no-store" });
+    const txt = await res.text();
+    const data = parseCSV(txt);
 
-        if(c === '"' && inQuotes && n === '"'){
-          cur += '"';
-          i++;
-          continue;
-        }
-        if(c === '"'){
-          inQuotes = !inQuotes;
-          continue;
-        }
-        if(c === ',' && !inQuotes){
-          row.push(cur);
-          cur = "";
-          continue;
-        }
-        if((c === '\n' || c === '\r') && !inQuotes){
-          if(c === '\r' && n === '\n') i++;
-          row.push(cur);
-          cur = "";
-          if(row.some(v => v !== "")){
-            rows.push(row);
-          }
-          row = [];
-          continue;
-        }
-        cur += c;
+    table.innerHTML = "";
+
+    data.forEach(row=>{
+      let away = pick(row, ["away_team","away","auswaerts"]);
+      let home = pick(row, ["home_team","home","heim"]);
+      const score = pick(row, ["score"]);
+      const proj = pick(row, ["projection","prognose"]);
+
+      // Fix für dein aktuelles Problem: Erste Zeile enthält "A vs. B"
+      const sp = splitIfCombined(away);
+      if (sp.combined){
+        away = sp.away;
+        if (!home) home = sp.home;
       }
-      row.push(cur);
-      if(row.some(v => v !== "")) rows.push(row);
 
-      if(rows.length === 0) return [];
-      const header = rows[0].map(h => h.trim());
-      return rows.slice(1).map(r => {
-        const obj = {};
-        header.forEach((h, idx) => obj[h] = (r[idx] ?? "").trim());
-        return obj;
+      const tr = document.createElement("tr");
+
+      const tdAway = document.createElement("td");
+      tdAway.appendChild(teamCell(away));
+
+      const tdScore = document.createElement("td");
+      tdScore.className = "center";
+      tdScore.innerHTML = `<span style="display:inline-block;padding:4px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.18);font-weight:900">${score || "–"}</span>`;
+
+      const tdHome = document.createElement("td");
+      tdHome.appendChild(teamCell(home));
+
+      const tdProj = document.createElement("td");
+      tdProj.className = "right";
+      tdProj.style.fontWeight = "900";
+      tdProj.textContent = proj || "–";
+
+      tr.appendChild(tdAway);
+      tr.appendChild(tdScore);
+      tr.appendChild(tdHome);
+      tr.appendChild(tdProj);
+      table.appendChild(tr);
+    });
+
+    if (!data.length){
+      table.innerHTML = `<tr><td colspan="4" class="muted">Keine Matchup-Daten gefunden.</td></tr>`;
+    }
+  }
+
+  // =========================
+  // STANDINGS
+  // =========================
+  function pct(val){
+    const n = Number(String(val).replace(",", "."));
+    if (!isFinite(n)) return "–";
+    // falls win_pct schon 0.679 ist:
+    if (n <= 1) return (n*100).toFixed(1) + " %";
+    return n.toFixed(1) + " %";
+  }
+
+  async function loadStandings(){
+    const table = document.querySelector("#standingsTable tbody");
+    table.innerHTML = `<tr><td colspan="5" class="muted">Daten werden geladen …</td></tr>`;
+
+    const res = await fetch(URLS.standings, { cache: "no-store" });
+    const txt = await res.text();
+    const data = parseCSV(txt);
+
+    table.innerHTML = "";
+
+    data.forEach((row, idx)=>{
+      const team = pick(row, ["team_name","team"]);
+      const w = pick(row, ["W","wins"]);
+      const l = pick(row, ["L","losses"]);
+      const wp = pick(row, ["win_pct","w_pct","win%"]);
+      const streak = pick(row, ["streak_label","streak"]);
+
+      const tr = document.createElement("tr");
+
+      const tdRank = document.createElement("td");
+      tdRank.textContent = String(idx+1);
+      tdRank.style.color = "rgba(245,247,255,.75)";
+      tdRank.style.fontWeight = "900";
+
+      const tdTeam = document.createElement("td");
+      tdTeam.appendChild(teamCell(team));
+
+      const tdWL = document.createElement("td");
+      tdWL.className = "center";
+      tdWL.style.fontWeight = "900";
+      tdWL.textContent = (w && l) ? `${w}-${l}` : "–";
+
+      const tdWP = document.createElement("td");
+      tdWP.className = "right";
+      tdWP.style.fontWeight = "900";
+      tdWP.textContent = pct(wp);
+
+      const tdStreak = document.createElement("td");
+      tdStreak.className = "right";
+      tdStreak.style.fontWeight = "900";
+      tdStreak.textContent = streak || "–";
+
+      tr.appendChild(tdRank);
+      tr.appendChild(tdTeam);
+      tr.appendChild(tdWL);
+      tr.appendChild(tdWP);
+      tr.appendChild(tdStreak);
+      table.appendChild(tr);
+    });
+
+    // Chips oben (beste Bilanz + längste Serie) aus Standings ableiten
+    if (data.length){
+      const bestTeam = pick(data[0], ["team_name","team"]);
+      document.getElementById("chipBest").textContent = bestTeam || "–";
+
+      // längste Serie: einfach max absolute Zahl aus streak_label (z.B. "3-Siege")
+      let bestStreak = { team:"", n:0, label:"" };
+      data.forEach(r=>{
+        const team = pick(r, ["team_name","team"]);
+        const s = pick(r, ["streak_label","streak"]);
+        const m = String(s).match(/(\d+)/);
+        const n = m ? Number(m[1]) : 0;
+        if (n > bestStreak.n){
+          bestStreak = { team, n, label: s };
+        }
       });
+      document.getElementById("chipStreak").textContent = bestStreak.label ? `${bestStreak.team}` : "–";
     }
+  }
 
-    function safeNumber(x){
-      if(x === null || x === undefined) return null;
-      const s = String(x).trim();
-      if(s === "") return null;
-      // allow ".679" style
-      const normalized = s.startsWith(".") ? "0"+s : s;
-      const n = Number(normalized);
-      return Number.isFinite(n) ? n : null;
-    }
+  // =========================
+  // POWER RANKING + PR+
+  // =========================
+  let prMode = "pr"; // "pr" | "prp"
 
-    function initials(name){
-      return name.split(" ").filter(Boolean).slice(0,2).map(p => p[0].toUpperCase()).join("");
-    }
+  function setPRMode(mode){
+    prMode = mode;
+    document.getElementById("btnPR").classList.toggle("active", mode==="pr");
+    document.getElementById("btnPRP").classList.toggle("active", mode==="prp");
 
-    function renderLogo(team){
-      const src = teamLogos[team];
-      const div = document.createElement("div");
-      div.className = "logo";
-      if(!src){
-        const fb = document.createElement("div");
-        fb.className = "fallback";
-        fb.textContent = initials(team);
-        div.appendChild(fb);
-        return div;
-      }
-      const img = document.createElement("img");
-      img.src = src;
-      img.alt = team + " Logo";
-      img.onerror = () => {
-        div.innerHTML = "";
-        const fb = document.createElement("div");
-        fb.className = "fallback";
-        fb.textContent = initials(team);
-        div.appendChild(fb);
-      };
-      div.appendChild(img);
-      return div;
-    }
+    // Delta-Spalte nur bei PR+
+    const showDelta = (mode === "prp");
+    document.getElementById("deltaHead").style.display = showDelta ? "" : "none";
+    loadPR();
+  }
 
-    function parseStreakLabel(label){
-      // label like "3-Siege", "2-Niederlagen", "1-Unentschieden"
-      const s = (label || "").trim();
-      const m = s.match(/^(\d+)\s*-\s*(Siege|Niederlagen|Unentschieden)/i);
-      if(!m) return { value: 0, type: "unknown" };
-      const n = parseInt(m[1],10);
-      const t = m[2].toLowerCase();
-      if(t.startsWith("sieg")) return { value: n, type: "win" };
-      if(t.startsWith("nieder")) return { value: -n, type: "loss" };
-      if(t.startsWith("unent")) return { value: 0, type: "tie" };
-      return { value: 0, type: "unknown" };
-    }
+  async function loadPR(){
+    const table = document.querySelector("#prTable tbody");
+    table.innerHTML = `<tr><td colspan="4" class="muted">Daten werden geladen …</td></tr>`;
 
-    // Split "Team A vs. Team B" if it accidentally sits in one cell
-    function splitVs(text){
-      const s = (text || "").trim();
-      const patterns = [" vs. ", " vs ", "VS.", "VS ", "vs.", "vs "];
-      for(const p of patterns){
-        const idx = s.indexOf(p);
-        if(idx > 0){
-          const a = s.slice(0, idx).trim();
-          const b = s.slice(idx + p.length).trim();
-          if(a && b) return [a,b];
-        }
-      }
-      return null;
-    }
+    const url = (prMode === "prp") ? URLS.prp : URLS.pr;
+    const res = await fetch(url, { cache: "no-store" });
+    const txt = await res.text();
+    const data = parseCSV(txt);
 
-    // ============
-    // RENDERERS
-    // ============
+    table.innerHTML = "";
 
-    function setPodcast(){
-      document.getElementById("podcastLink").href = PODCAST_URL;
-      document.getElementById("podcastFrame").src = PODCAST_EMBED_SRC;
-    }
+    data.forEach(row=>{
+      const rank = pick(row, ["rank","#"]);
+      const team = pick(row, ["team_name","team"]);
+      const score = pick(row, ["score"]);
+      const delta = pick(row, ["delta","Δ"]);
 
-    function renderDashboardFromStandings(standings){
-      const dash = document.getElementById("dashboardCards");
-      dash.innerHTML = "";
+      const tr = document.createElement("tr");
 
-      if(!standings || standings.length === 0){
-        dash.innerHTML = `<div class="error">Keine Standings-Daten gefunden.</div>`;
-        return;
-      }
+      const tdRank = document.createElement("td");
+      tdRank.textContent = rank || "–";
+      tdRank.style.color = "rgba(245,247,255,.75)";
+      tdRank.style.fontWeight = "900";
 
-      // Best record by win_pct
-      let best = null;
-      for(const r of standings){
-        const wp = safeNumber(r.win_pct);
-        if(wp === null) continue;
-        if(!best || wp > best.wp) best = { team: r.team_name, wp };
-      }
+      const tdTeam = document.createElement("td");
+      tdTeam.appendChild(teamCell(team));
 
-      // Longest winning streak / losing streak from streak_label
-      let bestWin = null;
-      let bestLoss = null;
-      for(const r of standings){
-        const st = parseStreakLabel(r.streak_label);
-        if(st.type === "win"){
-          if(!bestWin || st.value > bestWin.len) bestWin = { team: r.team_name, len: st.value };
-        }
-        if(st.type === "loss"){
-          if(!bestLoss || Math.abs(st.value) > bestLoss.len) bestLoss = { team: r.team_name, len: Math.abs(st.value) };
+      const tdScore = document.createElement("td");
+      tdScore.className = "right";
+      tdScore.style.fontWeight = "900";
+      tdScore.textContent = score || "–";
+
+      const tdDelta = document.createElement("td");
+      tdDelta.className = "right";
+      tdDelta.style.fontWeight = "900";
+      tdDelta.style.display = (prMode==="prp") ? "" : "none";
+
+      if (prMode==="prp"){
+        const d = String(delta || "0").trim();
+        tdDelta.textContent = d;
+
+        // optischer Punch bei nonzero
+        if (d !== "0" && d !== "" && d !== "–"){
+          tdDelta.style.color = "rgba(240,138,42,.95)";
+        } else {
+          tdDelta.style.color = "rgba(245,247,255,.75)";
         }
       }
 
-      const cards = [
-        {
-          label: "Beste Bilanz",
-          team: best?.team ?? "—",
-          meta: best ? `Siegesquote: ${(best.wp*100).toFixed(1)}%` : "—"
-        },
-        {
-          label: "Längste Siegesserie",
-          team: bestWin?.team ?? "—",
-          meta: bestWin ? `${bestWin.len}-Siege` : "—"
-        },
-        {
-          label: "Längste Niederlagenserie",
-          team: bestLoss?.team ?? "—",
-          meta: bestLoss ? `${bestLoss.len}-Niederlagen` : "—"
-        }
-      ];
+      tr.appendChild(tdRank);
+      tr.appendChild(tdTeam);
+      tr.appendChild(tdScore);
+      tr.appendChild(tdDelta);
+      table.appendChild(tr);
+    });
 
-      for(const c of cards){
-        const box = document.createElement("div");
-        box.className = "mini";
-
-        const label = document.createElement("div");
-        label.className = "label";
-        label.textContent = c.label;
-
-        const row = document.createElement("div");
-        row.className = "row";
-
-        row.appendChild(renderLogo(c.team));
-
-        const txt = document.createElement("div");
-        const team = document.createElement("div");
-        team.className = "team";
-        team.textContent = c.team;
-
-        const meta = document.createElement("div");
-        meta.className = "meta";
-        meta.textContent = c.meta;
-
-        txt.appendChild(team);
-        txt.appendChild(meta);
-        row.appendChild(txt);
-
-        box.appendChild(label);
-        box.appendChild(row);
-        dash.appendChild(box);
-      }
-
-      document.getElementById("dashNote").textContent =
-        "Tipp: Wenn Logos als Initialen erscheinen, passt der Teamname aus dem CSV nicht exakt zum Logo-Mapping.";
+    if (!data.length){
+      table.innerHTML = `<tr><td colspan="4" class="muted">Keine PR-Daten gefunden.</td></tr>`;
     }
+  }
 
-    function renderStandingsTable(standings){
-      const body = document.getElementById("standingsBody");
-      body.innerHTML = "";
+  // =========================
+  // INIT
+  // =========================
+  document.getElementById("btnPR").addEventListener("click", ()=>setPRMode("pr"));
+  document.getElementById("btnPRP").addEventListener("click", ()=>setPRMode("prp"));
 
-      for(const r of standings){
-        const tr = document.createElement("tr");
-
-        const tdTeam = document.createElement("td");
-        const wrap = document.createElement("div");
-        wrap.className = "teamcell";
-        wrap.appendChild(renderLogo(r.team_name || "—"));
-
-        const name = document.createElement("div");
-        name.innerHTML = `<div style="font-weight:800;">${r.team_name || "—"}</div>`;
-        wrap.appendChild(name);
-        tdTeam.appendChild(wrap);
-
-        const tdConf = document.createElement("td");
-        tdConf.textContent = r.conf || "—";
-        tdConf.className = "muted";
-
-        const tdW = document.createElement("td");
-        tdW.textContent = r.W || "—";
-
-        const tdL = document.createElement("td");
-        tdL.textContent = r.L || "—";
-
-        const tdWP = document.createElement("td");
-        const wp = safeNumber(r.win_pct);
-        tdWP.textContent = (wp === null) ? "—" : (wp*100).toFixed(1) + "%";
-
-        const tdSt = document.createElement("td");
-        tdSt.textContent = r.streak_label || "—";
-        tdSt.className = "muted";
-
-        tr.appendChild(tdTeam);
-        tr.appendChild(tdConf);
-        tr.appendChild(tdW);
-        tr.appendChild(tdL);
-        tr.appendChild(tdWP);
-        tr.appendChild(tdSt);
-
-        body.appendChild(tr);
-      }
+  (async function init(){
+    try{
+      await Promise.all([
+        loadMatchups(),
+        loadStandings(),
+      ]);
+      await loadPR();
+    }catch(e){
+      console.error(e);
     }
+  })();
+</script>
 
-    function renderMatchupsTable(matchups){
-      const body = document.getElementById("matchupsBody");
-      body.innerHTML = "";
-
-      for(const r of matchups){
-        let away = r.away_team || "";
-        let home = r.home_team || "";
-
-        // If away column accidentally contains "Team A vs. Team B"
-        const split = splitVs(away);
-        if(split && (!home || home === "")){
-          away = split[0];
-          home = split[1];
-        }
-
-        const tr = document.createElement("tr");
-
-        const tdAway = document.createElement("td");
-        const awayWrap = document.createElement("div");
-        awayWrap.className = "teamcell";
-        awayWrap.appendChild(renderLogo(away || "—"));
-        const awayName = document.createElement("div");
-        awayName.innerHTML = `<div style="font-weight:800;">${away || "—"}</div>`;
-        awayWrap.appendChild(awayName);
-        tdAway.appendChild(awayWrap);
-
-        const tdScore = document.createElement("td");
-        tdScore.textContent = r.score || "—";
-
-        const tdHome = document.createElement("td");
-        const homeWrap = document.createElement("div");
-        homeWrap.className = "teamcell";
-        homeWrap.appendChild(renderLogo(home || "—"));
-        const homeName = document.createElement("div");
-        homeName.innerHTML = `<div style="font-weight:800;">${home || "—"}</div>`;
-        homeWrap.appendChild(homeName);
-        tdHome.appendChild(homeWrap);
-
-        const tdProj = document.createElement("td");
-        tdProj.textContent = r.projection || "—";
-        tdProj.className = "muted";
-
-        tr.appendChild(tdAway);
-        tr.appendChild(tdScore);
-        tr.appendChild(tdHome);
-        tr.appendChild(tdProj);
-
-        body.appendChild(tr);
-      }
-    }
-
-    function renderPRTable(rows, mode){
-      // mode: "pr" or "pr+"
-      const head = document.getElementById("prHead");
-      const body = document.getElementById("prBody");
-      head.innerHTML = "";
-      body.innerHTML = "";
-
-      // Header
-      const trh = document.createElement("tr");
-      if(mode === "pr"){
-        trh.innerHTML = `
-          <th>Rang</th>
-          <th>Team</th>
-          <th>Score</th>
-        `;
-      } else {
-        trh.innerHTML = `
-          <th>Rang</th>
-          <th>Team</th>
-          <th>Score</th>
-          <th>Delta</th>
-        `;
-      }
-      head.appendChild(trh);
-
-      // Body
-      for(const r of rows){
-        const tr = document.createElement("tr");
-
-        const tdRank = document.createElement("td");
-        tdRank.textContent = r.rank || "—";
-
-        const tdTeam = document.createElement("td");
-        const wrap = document.createElement("div");
-        wrap.className = "teamcell";
-        wrap.appendChild(renderLogo(r.team_name || "—"));
-        const nm = document.createElement("div");
-        nm.innerHTML = `<div style="font-weight:800;">${r.team_name || "—"}</div>`;
-        wrap.appendChild(nm);
-        tdTeam.appendChild(wrap);
-
-        const tdScore = document.createElement("td");
-        tdScore.textContent = r.score || "—";
-
-        tr.appendChild(tdRank);
-        tr.appendChild(tdTeam);
-        tr.appendChild(tdScore);
-
-        if(mode === "pr+"){
-          const tdDelta = document.createElement("td");
-          // delta kann "0" oder "+2" oder "-1" etc.
-          tdDelta.textContent = (r.delta ?? "—");
-          tdDelta.className = "muted";
-          tr.appendChild(tdDelta);
-        }
-
-        body.appendChild(tr);
-      }
-    }
-
-    // ============
-    // LOAD
-    // ============
-
-    async function loadAll(){
-      setPodcast();
-
-      // Load Standings (also used for dashboard)
-      try{
-        const txt = await fetchText(STANDINGS_URL);
-        const standings = parseCSV(txt);
-        document.getElementById("standingsError").style.display = "none";
-        renderStandingsTable(standings);
-        renderDashboardFromStandings(standings);
-      }catch(e){
-        const el = document.getElementById("standingsError");
-        el.style.display = "block";
-        el.textContent = "Standings konnten nicht geladen werden: " + e.message;
-      }
-
-      // Load Matchups
-      try{
-        const txt = await fetchText(MATCHUPS_URL);
-        const matchups = parseCSV(txt);
-        document.getElementById("matchupsError").style.display = "none";
-        renderMatchupsTable(matchups);
-      }catch(e){
-        const el = document.getElementById("matchupsError");
-        el.style.display = "block";
-        el.textContent = "Matchups konnten nicht geladen werden: " + e.message;
-      }
-
-      // Load PR + PR+
-      const btnPR = document.getElementById("btnPR");
-      const btnPRP = document.getElementById("btnPRP");
-      const badge = document.getElementById("prBadge");
-      const err = document.getElementById("prError");
-
-      let prRows = [];
-      let prpRows = [];
-
-      try{
-        const [t1, t2] = await Promise.all([fetchText(POWER_RANKING_URL), fetchText(POWER_RANKING_PLUS_URL)]);
-        prRows = parseCSV(t1);
-        prpRows = parseCSV(t2);
-
-        err.style.display = "none";
-        badge.textContent = `PR: ${prRows.length} | PR+: ${prpRows.length}`;
-
-        // default PR view
-        renderPRTable(prRows, "pr");
-
-        btnPR.onclick = () => {
-          btnPR.classList.add("active");
-          btnPRP.classList.remove("active");
-          renderPRTable(prRows, "pr");
-        };
-        btnPRP.onclick = () => {
-          btnPRP.classList.add("active");
-          btnPR.classList.remove("active");
-          renderPRTable(prpRows, "pr+");
-        };
-
-      }catch(e){
-        err.style.display = "block";
-        err.textContent = "Power Ranking Daten konnten nicht geladen werden: " + e.message;
-        badge.textContent = "Fehler";
-      }
-    }
-
-    loadAll();
-  </script>
 </body>
 </html>
