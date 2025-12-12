@@ -551,7 +551,7 @@
 
     table.innerHTML = "";
 
-    data.forEach((row, idx)=>{
+    sorted.forEach((row, idx)=>{
       const team = pick(row, ["team_name","team"]);
       const w = pick(row, ["W","wins"]);
       const l = pick(row, ["L","losses"]);
@@ -635,6 +635,35 @@
     const res = await fetch(url, { cache: "no-store" });
     const txt = await res.text();
     const data = parseCSV(txt);
+
+// --- AUTO-SORT: zuerst nach rank (1 = best), fallback nach score (kleiner = besser) ---
+    const sorted = [...data].sort((a, b) => {
+    const ra = Number(String(pick(a, ["rank", "#"])).replace(",", "."));
+    const rb = Number(String(pick(b, ["rank", "#"])).replace(",", "."));
+
+    const hasRa = Number.isFinite(ra);
+    const hasRb = Number.isFinite(rb);
+
+  // 1) Primär: rank aufsteigend
+    if (hasRa && hasRb && ra !== rb) return ra - rb;
+    if (hasRa && !hasRb) return -1;
+    if (!hasRa && hasRb) return 1;
+
+  // 2) Fallback: score aufsteigend (kleiner = besser)
+    const sa = Number(String(pick(a, ["score"])).replace(",", "."));
+    const sb = Number(String(pick(b, ["score"])).replace(",", "."));
+    const hasSa = Number.isFinite(sa);
+    const hasSb = Number.isFinite(sb);
+
+    if (hasSa && hasSb && sa !== sb) return sa - sb;
+    if (hasSa && !hasSb) return -1;
+    if (!hasSa && hasSb) return 1;
+
+  // 3) Stabil: Teamname alphabetisch
+  const ta = String(pick(a, ["team_name", "team"])).toLowerCase();
+  const tb = String(pick(b, ["team_name", "team"])).toLowerCase();
+  return ta.localeCompare(tb, "de");
+});
 
     table.innerHTML = "";
 
