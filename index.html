@@ -460,23 +460,25 @@
     // Du hast pubhtml-Links geschickt -> Code normalisiert automatisch auf CSV.
     // Hinweis: Beide Links sind aktuell identisch (gleicher gid). PR und PR+ werden dadurch gleich aussehen,
     // bis du den echten PR+-gid einsetzt.
-    const POWER_RANKING_CSV_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pubhtml?gid=1192817047&single=true";
+    const POWER_RANKING_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1192817047&single=true&output=csv";
 
-    const POWER_RANKING_PLUS_CSV_URL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pubhtml?gid=1192817047&single=true";
+    const POWER_RANKING_PLUS_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1541127392&single=true&output=csv";
+    
 
     // === Team-Logos ===
     const teamLogos = {
-      "BlackForest Mad Wolves": "logos/Logo BlackForest Mad Wolves.png",
-      "Balingen Lions": "logos/Logo Balingen Lions.png",
-      "East Bay Pirates": "logos/Logo East Bay Pirates.png",
-      "Toronto Polar Bears": "logos/Logo Toronto Polar Bears.png",
-      "Wild Cheetahs": "logos/Logo Wild Cheetahs.png",
-      "Karlsruhe Unicorns": "logos/Logo Karlsruhe Unicorns.png",
-      "Dormettingen Eagles": "logos/Logo Dormettingen Eagles.png",
-      "Guardians of Rhinos": "logos/Logo Guardians of Rhinos.png"
+      "Balingen Lions": "logos/Balingen Lions.png",
+      "BlackForest Mad Wolves": "logos/BlackForest Mad Wolves.png",
+      "Dormettingen Eagles": "logos/Dormettingen Eagles.png",
+      "East Bay Pirates": "logos/East Bay Pirates.png",
+      "Guardians of Rhinos": "logos/Guardians of Rhinos.png",
+      "Karlsruhe Unicorns": "logos/Karlsruhe Unicorns.png",
+      "Toronto Polar Bears": "logos/Toronto Polar Bears.png",
+      "Wild Cheetahs": "logos/Wild Cheetahs.png"
     };
+
 
     function encodePath(p) {
       return encodeURI(p);
