@@ -2,24 +2,23 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FBA Hub – Fantasy Brick Association</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     :root {
-      --bg: #05060b;
-      --bg-soft: #0e1018;
-      --bg-card: #111320;
-      --bg-card-soft: #171a2b;
-      --accent: #ff8a3c;
-      --accent-soft: rgba(255,138,60,0.12);
-      --text-main: #f5f5ff;
-      --text-muted: #a3a7c2;
-      --border-subtle: rgba(255,255,255,0.05);
+      --bg: #05060a;
+      --bg-alt: #101218;
+      --card: #151822;
+      --accent: #ff8a2a;
+      --accent-soft: rgba(255, 138, 42, 0.15);
+      --accent-border: rgba(255, 138, 42, 0.35);
+      --text: #f5f5f7;
+      --muted: #a0a3b1;
+      --danger: #ff4b6a;
+      --success: #4ade80;
+      --border: #262938;
+      --shadow-soft: 0 18px 55px rgba(0, 0, 0, 0.55);
       --radius-lg: 18px;
-      --radius-xl: 22px;
-      --shadow-soft: 0 18px 45px rgba(0,0,0,0.65);
-      --transition-fast: 160ms ease-out;
-      --max-width: 1120px;
     }
 
     * {
@@ -30,886 +29,812 @@
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #171a2b 0, #05060b 45%, #020308 100%);
-      color: var(--text-main);
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text);
       min-height: 100vh;
-      font-size: 16px;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
     }
 
     .page {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 20px 16px 40px;
+      width: 100%;
+      max-width: 1200px;
     }
 
     header {
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(to bottom, rgba(5,6,11,0.96), rgba(5,6,11,0.8), transparent);
-    }
-
-    .topbar {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 10px 16px 6px;
+      background: linear-gradient(135deg, #ff8a2a 0%, #f97316 45%, #ea580c 100%);
+      border-radius: 24px;
+      padding: 20px 24px;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
+      gap: 24px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
     }
 
     .brand {
       display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .brand-logo {
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: radial-gradient(circle at 30% 20%, #fff, #ffd6b4 25%, #ff8a3c 55%, #4b1c0b 100%);
-      box-shadow: 0 0 0 2px rgba(255,255,255,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 19px;
-      font-weight: 800;
-      color: #1b0b03;
-    }
-
-    .brand-text {
-      display: flex;
       flex-direction: column;
-      gap: 2px;
+      gap: 8px;
+      max-width: 480px;
     }
 
     .brand-title {
-      font-size: 16px;
-      font-weight: 700;
-      letter-spacing: 0.03em;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
     .brand-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
+      font-size: 16px;
+      opacity: 0.92;
     }
 
-    .nav {
+    .brand-meta {
       display: flex;
       gap: 10px;
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .nav a {
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition:
-        background var(--transition-fast),
-        color var(--transition-fast),
-        border-color var(--transition-fast),
-        transform 80ms ease-out;
-      white-space: nowrap;
-    }
-
-    .nav a:hover {
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-color: rgba(255,138,60,0.5);
-      transform: translateY(-1px);
-    }
-
-    .nav a:active {
-      transform: translateY(0);
-    }
-
-    main {
-      margin-top: 10px;
-    }
-
-    section {
-      margin-bottom: 32px;
-    }
-
-    /* HERO mit Podcast rechts */
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1.1fr);
-      gap: 22px;
-      align-items: stretch;
-      margin-bottom: 28px;
-    }
-
-    .hero-text h1 {
-      font-size: clamp(30px, 4.4vw, 36px);
-      margin-bottom: 10px;
-    }
-
-    .hero-kicker {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .hero-text p {
-      font-size: 14px;
-      color: var(--text-muted);
-      max-width: 480px;
-      line-height: 1.4;
-    }
-
-    .hero-meta {
-      display: flex;
       flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
+      font-size: 14px;
+      opacity: 0.9;
     }
 
     .pill {
-      font-size: 12px;
-      padding: 4px 9px;
+      padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: linear-gradient(135deg, rgba(255,138,60,0.14), rgba(255,138,60,0.04));
-      color: var(--accent);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+      background: rgba(0, 0, 0, 0.16);
+      font-size: 13px;
     }
 
-    /* Podcast-Karte */
-
-    .podcast-hero {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      padding: 14px;
+    .podcast-card {
+      background: rgba(0, 0, 0, 0.18);
+      border-radius: 18px;
+      padding: 10px 12px;
+      width: 320px;
+      min-width: 260px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-
-    .podcast-hero-label {
-      font-size: 12px;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.09em;
-    }
-
-    .podcast-hero-title {
-      font-size: 16px;
-      font-weight: 600;
-    }
-
-    .podcast-hero-text {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .podcast-badges {
-      display: flex;
-      flex-wrap: wrap;
       gap: 8px;
-      margin-top: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
     }
 
-    .podcast-badge {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.1);
-      background: rgba(255,255,255,0.03);
-      color: var(--text-muted);
-    }
-
-    iframe.spotify-player {
-      width: 100%;
-      min-height: 160px;
-      border: none;
-      border-radius: 14px;
-    }
-
-    /* Sektionen */
-
-    .section-header {
+    .podcast-header {
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
+      align-items: center;
       gap: 10px;
-      margin-bottom: 10px;
     }
 
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .section-subtitle {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .section-tag {
-      font-size: 12px;
-      color: var(--accent);
-      padding: 3px 9px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,138,60,0.5);
-      background: rgba(255,138,60,0.08);
-      white-space: nowrap;
-    }
-
-    /* Cards */
-
-    .card-row {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
-
-    .card {
-      background: radial-gradient(circle at top left, rgba(255,138,60,0.16), rgba(7,9,15,0.98));
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      padding: 14px 14px 13px;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .card--muted {
-      background: linear-gradient(135deg, rgba(15,17,27,0.98), rgba(6,7,12,0.98));
-    }
-
-    .card-label {
-      font-size: 12px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 2px;
-    }
-
-    .card-title {
+    .podcast-title {
       font-size: 15px;
       font-weight: 600;
     }
 
-    .card-meta {
-      font-size: 14px;
-      color: var(--text-muted);
-    }
-
-    .card-logo-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .team-logo {
-      width: 24px;
-      height: 24px;
+    .podcast-badge {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
       border-radius: 999px;
-      object-fit: cover;
-      background: #000;
-      border: 1px solid rgba(255,255,255,0.08);
-      flex-shrink: 0;
+      padding: 3px 8px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(15, 23, 42, 0.9);
     }
 
-    /* Matchups */
+    .podcast-iframe-wrapper {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+    }
 
-    .matchups-wrapper {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
+    iframe {
+      border: none;
+      width: 100%;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 20px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 2fr 1.5fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: radial-gradient(circle at top left, rgba(255, 138, 42, 0.12), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(15, 23, 42, 0.9), #020617);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
-      padding: 12px 14px;
-      margin-bottom: 14px;
     }
 
-    .matchups-header-row {
+    .card-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      margin-bottom: 6px;
-      gap: 8px;
+      margin-bottom: 10px;
+      gap: 10px;
     }
 
-    .matchups-title {
-      font-size: 14px;
+    .card-title {
+      font-size: 19px;
       font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
 
-    .matchups-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-
-    .matchup-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      margin-top: 4px;
-    }
-
-    .matchup-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
+    .card-subtitle {
       font-size: 13px;
-      padding: 4px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--muted);
     }
 
-    .matchup-row:last-child {
-      border-bottom: none;
-    }
-
-    .matchup-label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .matchup-proj {
-      font-size: 12px;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
-    .matchup-tag {
+    .badge {
       font-size: 11px;
-      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-border);
+      background: var(--accent-soft);
+      color: var(--accent);
     }
 
-    /* Tabelle Standings */
-
-    .table-wrapper {
-      background: var(--bg-card);
-      border-radius: var(--radius-xl);
-      border: 1px solid var(--border-subtle);
-      box-shadow: var(--shadow-soft);
-      overflow: hidden;
+    .section-body {
+      font-size: 15px;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 13px;
-    }
-
-    thead {
-      background: linear-gradient(to right, rgba(255,138,60,0.18), rgba(12,13,22,0.98));
+      font-size: 14px;
     }
 
     th, td {
-      padding: 8px 10px;
+      padding: 6px 6px;
       text-align: left;
-      white-space: nowrap;
+      border-bottom: 1px solid #1f2937;
     }
 
     th {
-      font-weight: 600;
-      color: var(--text-muted);
-      font-size: 11px;
-      letter-spacing: 0.06em;
+      font-size: 13px;
+      color: var(--muted);
       text-transform: uppercase;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      letter-spacing: 0.06em;
     }
 
-    tbody tr:nth-child(odd) {
-      background: rgba(255,255,255,0.01);
+    tr:last-child td {
+      border-bottom: none;
     }
 
-    tbody tr:hover {
-      background: rgba(255,255,255,0.03);
-    }
-
-    td {
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-
-    td.team-col {
+    .team-cell {
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
+    .team-logo {
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: #020617;
+      flex-shrink: 0;
+    }
+
     .team-name {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .muted {
+      color: var(--muted);
       font-size: 13px;
     }
 
-    .team-conf {
+    .pill-small {
       font-size: 11px;
-      color: var(--text-muted);
-    }
-
-    .streak-badge {
-      font-size: 12px;
       padding: 2px 6px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      white-space: nowrap;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
-    @media (max-width: 768px) {
-      .hero {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .topbar {
+    .pill-success {
+      border-color: rgba(34, 197, 94, 0.7);
+      color: #bbf7d0;
+    }
+
+    .pill-danger {
+      border-color: rgba(248, 113, 113, 0.7);
+      color: #fecaca;
+    }
+
+    .delta-pos {
+      color: #bbf7d0;
+    }
+
+    .delta-neg {
+      color: #fecaca;
+    }
+
+    .delta-zero {
+      color: var(--muted);
+    }
+
+    .highlight-row {
+      background: rgba(15, 23, 42, 0.85);
+    }
+
+    .tagline {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 900px) {
+      header {
         flex-direction: column;
-        align-items: flex-start;
       }
-      .nav {
-        flex-wrap: nowrap;
-        overflow-x: auto;
+      .podcast-card {
         width: 100%;
-        padding-bottom: 4px;
+      }
+      .grid,
+      .grid-3,
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px;
+      }
+      header {
+        padding: 16px;
+      }
+      .brand-title {
+        font-size: 22px;
+      }
+      .card {
+        padding: 14px;
+      }
+      table {
+        font-size: 13px;
+      }
+      th, td {
+        padding: 5px 4px;
       }
     }
   </style>
 </head>
 <body>
-<header>
-  <div class="topbar">
-    <div class="brand">
-      <div class="brand-logo">F</div>
-      <div class="brand-text">
+  <div class="page">
+    <header>
+      <div class="brand">
         <div class="brand-title">Fantasy Brick Association</div>
-        <div class="brand-subtitle">FBA Hub • Live Insights</div>
-      </div>
-    </div>
-    <nav class="nav">
-      <a href="#live-dashboard">Live</a>
-      <a href="#standings">Standings</a>
-      <a href="#power-ranking">Power Ranking</a>
-      <a href="#hof">Hall of Fame</a>
-    </nav>
-  </div>
-</header>
-
-<div class="page">
-  <main>
-    <!-- HERO mit Podcast rechts -->
-    <section class="hero">
-      <div class="hero-text">
-        <div class="hero-kicker">Season 25/26 • Live</div>
-        <h1>FBA Hub – alle Zahlen und der Podcast auf einen Blick.</h1>
-        <p>
-          Tägliche Updates aus der Fantasy Brick Association: Standings, Power Ranking,
-          laufende Serien, All-Time-Rekorde und der offizielle FBA-Podcast direkt eingebettet.
-        </p>
-        <div class="hero-meta">
-          <span class="pill">8 Teams</span>
-          <span class="pill">Head-to-Head • 8 Punkte</span>
-          <span class="pill">Datenbasis: Google Sheets</span>
+        <div class="brand-subtitle">
+          FBA Hub – alle Zahlen, Serien und Power Rankings der Liga auf einen Blick.
+        </div>
+        <div class="brand-meta">
+          <span class="pill">Regular Season 25/26</span>
+          <span class="pill" id="best-team-pill">Beste Bilanz: –</span>
+          <span class="pill" id="streak-pill">Längste Serie: –</span>
         </div>
       </div>
-      <aside class="podcast-hero">
-        <div class="podcast-hero-label">Offizieller FBA-Podcast</div>
-        <div class="podcast-hero-title">The Howling Wolf &amp; Friends</div>
-        <div class="podcast-hero-text">
-          Recaps, Power Rankings und Previews – inklusive gepflegtem Mobbing zwischen den Managern.
-        </div>
-        <div class="podcast-badges">
-          <span class="podcast-badge">
-            <a href="https://open.spotify.com/episode/5IFryO5ElCtLA9zNtCT2bf" target="_blank" rel="noopener noreferrer">
-              Auf Spotify öffnen
-            </a>
-          </span>
-          <span class="podcast-badge">Hosted by BlackForest Mad Wolves</span>
-          <span class="podcast-badge">Wöchentliche Folgen</span>
-        </div>
-        <div>
-          <!-- Dein Spotify-Embed -->
-          <iframe
-            class="spotify-player"
-            src="https://open.spotify.com/embed/episode/5IFryO5ElCtLA9zNtCT2bf?"
-            loading="lazy"
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          ></iframe>
-        </div>
-      </aside>
-    </section>
-
-    <!-- LIVE DASHBOARD -->
-    <section id="live-dashboard">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Live Dashboard</div>
-          <div class="section-subtitle">Aktuelle Lage in der FBA – Matchups, Prognosen &amp; Hot Teams.</div>
-        </div>
-        <div class="section-tag">tägliches Update</div>
-      </div>
-
-      <!-- Aktuelle Matchups + Prognose -->
-      <div class="matchups-wrapper">
-        <div class="matchups-header-row">
+      <div class="podcast-card">
+        <div class="podcast-header">
           <div>
-            <div class="matchups-title">Aktuell laufende Matchups</div>
-            <div class="matchups-sub">
-              Live-Score &amp; Prognose, wie das Duell voraussichtlich ausgeht.
-            </div>
+            <div class="podcast-title">FBA Podcast – aktuelle Folge</div>
+            <div class="tagline">Recap, Power Ranking & Preview direkt aus dem Wolfsbau.</div>
           </div>
-          <div class="matchup-tag">Reguläre Saison • Woche n</div>
+          <div class="podcast-badge">Podcast</div>
         </div>
-        <div id="matchups-container" class="matchup-list">
-          <div style="font-size:13px;color:var(--text-muted);">
-            Lade laufende Matchups …
-          </div>
+        <div class="podcast-iframe-wrapper">
+          <!-- Wird dynamisch aus EXPORT_settings gefüllt -->
+          <iframe id="podcast-embed"
+                  src=""
+                  width="100%"
+                  height="152"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"></iframe>
         </div>
       </div>
+    </header>
 
-      <!-- Beste Bilanz & Serien -->
-      <div class="card-row">
-        <article class="card" id="card-best-record">
-          <div class="card-label">Beste Bilanz</div>
-          <div class="card-logo-row">
-            <img src="logos/Toronto Polar Bears.png" alt="" class="team-logo" id="best-record-logo">
+    <main>
+      <!-- Live Dashboard (Matchups) + Power Ranking klassisch -->
+      <div class="grid">
+        <section class="card" id="live-dashboard">
+          <div class="card-header">
             <div>
-              <div class="card-title" id="best-record-team">Toronto Polar Bears</div>
-              <div class="card-meta" id="best-record-meta">Sieggquote: 66.1 %</div>
+              <div class="card-title">Live Matchups</div>
+              <div class="card-subtitle">Aktuelles Matchup mit Prognose auf Basis der Saisonform.</div>
             </div>
+            <span class="badge">Regular Season</span>
           </div>
-        </article>
+          <div class="section-body">
+            <table id="matchups-table">
+              <thead>
+                <tr>
+                  <th>Matchup</th>
+                  <th>Auswärts</th>
+                  <th>Heim</th>
+                  <th>Prognose</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="4" class="muted">Daten werden geladen …</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-        <article class="card" id="card-win-streak">
-          <div class="card-label">Längste Siegesserie</div>
-          <div class="card-logo-row">
-            <img src="logos/BlackForest Mad Wolves.png" alt="" class="team-logo" id="win-streak-logo">
+        <section class="card" id="power-ranking-card">
+          <div class="card-header">
             <div>
-              <div class="card-title" id="win-streak-team">BlackForest Mad Wolves</div>
-              <div class="card-meta" id="win-streak-meta">3-Siege-Serie</div>
+              <div class="card-title">Power Ranking</div>
+              <div class="card-subtitle">Leistungs-Check der letzten Woche – unabhängig vom Matchup.</div>
             </div>
+            <span class="badge">Woche W-1</span>
           </div>
-        </article>
+          <div class="section-body">
+            <table id="power-ranking-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Team</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="3" class="muted">Daten werden geladen …</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
 
-        <article class="card" id="card-loss-streak">
-          <div class="card-label">Längste Niederlagenserie</div>
-          <div class="card-logo-row">
-            <img src="logos/East Bay Pirates.png" alt="" class="team-logo" id="loss-streak-logo">
+      <!-- Standings + Power Ranking Plus -->
+      <div class="grid">
+        <section class="card" id="standings-card">
+          <div class="card-header">
             <div>
-              <div class="card-title" id="loss-streak-team">East Bay Pirates</div>
-              <div class="card-meta" id="loss-streak-meta">1-Niederlage</div>
+              <div class="card-title">Aktuelle Tabelle</div>
+              <div class="card-subtitle">Live-Standings aus ESPN, inklusive Serien.</div>
             </div>
+            <span class="badge">Standings</span>
           </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- STANDINGS -->
-    <section id="standings">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Standings – Regular Season</div>
-          <div class="section-subtitle">Offizielle Tabelle inkl. Siegquoten und laufender Serien.</div>
-        </div>
-        <div class="section-tag">Quelle: Live Standings Sheet</div>
-      </div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-          <tr>
-            <th>#</th>
-            <th>Team</th>
-            <th>Conf</th>
-            <th>W</th>
-            <th>L</th>
-            <th>Win%</th>
-            <th>Serie</th>
-          </tr>
-          </thead>
-          <tbody id="standings-body">
-          <tr>
-            <td colspan="7" style="padding:10px;font-size:13px;color:var(--text-muted);">
-              Lade Standings …
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- POWER RANKING -->
-    <section id="power-ranking">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Power Ranking</div>
-          <div class="section-subtitle">Formkurve der Teams – basierend auf den letzten Wochen.</div>
-        </div>
-        <div class="section-tag">manueller Input (Sheet)</div>
-      </div>
-      <div class="card-row" id="power-ranking-cards">
-        <!-- Platzhalter – später an Power-Ranking-Sheet hängen -->
-        <article class="card card--muted">
-          <div class="card-label">#1</div>
-          <div class="card-title">BlackForest Mad Wolves</div>
-          <div class="card-meta">Dominant in Punkten &amp; Assists – ungeschlagen in den letzten Wochen.</div>
-        </article>
-        <article class="card card--muted">
-          <div class="card-label">#2</div>
-          <div class="card-title">East Bay Pirates</div>
-          <div class="card-meta">Dreier-Feuerwerk und stabile Rebounds – klar auf dem Vormarsch.</div>
-        </article>
-        <article class="card card--muted">
-          <div class="card-label">#3</div>
-          <div class="card-title">Toronto Polar Bears</div>
-          <div class="card-meta">Defensiv stark: Steals &amp; Blocks im oberen Bereich.</div>
-        </article>
-      </div>
-    </section>
-
-    <!-- HALL OF FAME & EWIGE TABELLE -->
-    <section id="hof">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Hall of Fame &amp; Ewige Tabelle</div>
-          <div class="section-subtitle">Titelträger und All-Time-Bilanz der FBA.</div>
-        </div>
-        <div class="section-tag">historische Daten</div>
-      </div>
-      <div class="card-row">
-        <article class="card card--muted">
-          <div class="card-label">Champions</div>
-          <div class="card-title">Titelträger 2020–2025</div>
-          <div class="card-meta">
-            2021 – Guardians of Rhinos<br>
-            2022 – Balingen Lions<br>
-            2023 – BlackForest Mad Wolves<br>
-            2024 – BlackForest Mad Wolves<br>
-            2025 – East Bay Pirates
+          <div class="section-body">
+            <table id="standings-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Team</th>
+                  <th>Bilanz</th>
+                  <th>W%</th>
+                  <th>Serie</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="5" class="muted">Daten werden geladen …</td></tr>
+              </tbody>
+            </table>
           </div>
-        </article>
-        <article class="card card--muted">
-          <div class="card-label">Ewige Tabelle</div>
-          <div class="card-title">Siege über alle Saisons</div>
-          <div class="card-meta" id="alltime-meta">
-            Kommt später direkt aus dem All-Time-Sheet – aktuell Platzhalter.
+        </section>
+
+        <section class="card" id="power-ranking-plus-card">
+          <div class="card-header">
+            <div>
+              <div class="card-title">Power Ranking+</div>
+              <div class="card-subtitle">Feintuning mit Abständen – wer ist wirklich heiß?</div>
+            </div>
+            <span class="badge">Advanced</span>
           </div>
-        </article>
+          <div class="section-body">
+            <table id="power-ranking-plus-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Team</th>
+                  <th>Score+</th>
+                  <th>Δ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="4" class="muted">Daten werden geladen …</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
-    </section>
-  </main>
-</div>
 
-<script>
-  // === KONFIG: Google-Sheets-CSV-Links ===
+      <!-- Hall of Fame / Ewige Tabelle kannst du später noch ergänzen -->
+    </main>
+  </div>
 
-  // Standings (Tab: standings_live)
-  const STANDINGS_CSV_URL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv";
+  <script>
+    // === CSV-Quellen ===
+    const SETTINGS_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv";
 
-  // Dashboard (Tab: settings)
-  const DASHBOARD_CSV_URL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=0&single=true&output=csv";
+    const STANDINGS_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=683402103&single=true&output=csv";
 
-  // Matchups (Tab: matchups_live)
-  const MATCHUPS_CSV_URL =
-    "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=478155593&single=true&output=csv";
+    const MATCHUPS_LIVE_CSV_URL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=478155593&single=true&output=csv";
 
-  // Logo-Pfad: logos/<Teamname>.png
-  function getLogo(teamName) {
-    if (!teamName) return "logos/default.png";
-    return "logos/" + teamName + ".png"; // Dateiname = Teamname
-  }
+    // TODO: diese beiden Links ersetzt du, sobald du die Tabs im Live-Sheet veröffentlicht hast
+    const POWER_RANKING_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1192817047&single=true&output=csv";
+    const POWER_RANKING_PLUS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vShK9dZvsVWaW-dOTecnC2XAxyBNB7uoL9u8I2n5py4cv1z5iuB8ivY-LBYyRGrkutNM0dS40VpV0n0/pub?gid=1541127392&single=true&output=csv";
 
-  // CSV-Parser mit automatischer Trennzeichen-Erkennung (, oder ;)
-  function parseCsv(text) {
-    const lines = text.trim().split(/\r?\n/);
-    if (!lines.length) return [];
+    // === Team-Logos ===
+    const teamLogos = {
+      "BlackForest Mad Wolves": "logos/Logo BlackForest Mad Wolves.png",
+      "Balingen Lions": "logos/Logo Balingen Lions.png",
+      "East Bay Pirates": "logos/Logo East Bay Pirates.png",
+      "Toronto Polar Bears": "logos/Logo Toronto Polar Bears.png",
+      "Wild Cheetahs": "logos/Logo Wild Cheetahs.png",
+      "Karlsruhe Unicorns": "logos/Logo Karlsruhe Unicorns.png",
+      "Dormettingen Eagles": "logos/Logo Dormettingen Eagles.png",
+      "Guardians of Rhinos": "logos/Logo Guardians of Rhinos.png"
+    };
 
-    const headerLine = lines[0];
-    const commaCount = (headerLine.match(/,/g) || []).length;
-    const semiCount = (headerLine.match(/;/g) || []).length;
-    const delimiter = semiCount > commaCount ? ";" : ",";
-
-    const header = headerLine.split(delimiter).map(h => h.trim());
-
-    return lines.slice(1).map(line => {
-      if (!line.trim()) return {};
-      const cols = line.split(delimiter).map(c => c.trim());
-      const obj = {};
-      header.forEach((h, i) => {
-        obj[h] = cols[i] !== undefined ? cols[i] : "";
-      });
-      return obj;
-    });
-  }
-
-  // Standings laden
-  async function loadStandings() {
-    if (!STANDINGS_CSV_URL.startsWith("http")) return;
-
-    try {
-      const res = await fetch(STANDINGS_CSV_URL);
-      const text = await res.text();
-      const rows = parseCsv(text);
-
-      const tbody = document.getElementById("standings-body");
-      tbody.innerHTML = "";
-
-      rows.forEach((row, index) => {
-        const tr = document.createElement("tr");
-
-        const tdRank = document.createElement("td");
-        tdRank.textContent = index + 1;
-
-        const tdTeam = document.createElement("td");
-        tdTeam.className = "team-col";
-        const img = document.createElement("img");
-        img.className = "team-logo";
-        const teamName = row.team_name || row.Team || "";
-        img.src = getLogo(teamName);
-        img.alt = "";
-        const nameWrap = document.createElement("div");
-        const spanName = document.createElement("div");
-        spanName.className = "team-name";
-        spanName.textContent = teamName;
-        const spanConf = document.createElement("div");
-        spanConf.className = "team-conf";
-        spanConf.textContent = row.conf || row.Conf || "";
-        nameWrap.appendChild(spanName);
-        nameWrap.appendChild(spanConf);
-        tdTeam.appendChild(img);
-        tdTeam.appendChild(nameWrap);
-
-        const tdConf = document.createElement("td");
-        tdConf.textContent = row.conf || row.Conf || "";
-
-        const tdW = document.createElement("td");
-        tdW.textContent = row.W || row.Wins || "";
-
-        const tdL = document.createElement("td");
-        tdL.textContent = row.L || row.Losses || "";
-
-        const tdPct = document.createElement("td");
-        tdPct.textContent = row.win_pct ? row.win_pct : (row.WinPct || "");
-
-        const tdStreak = document.createElement("td");
-        tdStreak.className = "streak-badge";
-        tdStreak.textContent = row.streak_label || row.streak || "";
-
-        tr.appendChild(tdRank);
-        tr.appendChild(tdTeam);
-        tr.appendChild(tdConf);
-        tr.appendChild(tdW);
-        tr.appendChild(tdL);
-        tr.appendChild(tdPct);
-        tr.appendChild(tdStreak);
-
-        tbody.appendChild(tr);
-      });
-    } catch (err) {
-      console.error("Standings-Load-Error:", err);
-      const tbody = document.getElementById("standings-body");
-      tbody.innerHTML =
-        '<tr><td colspan="7" style="padding:10px;font-size:13px;color:var(--text-muted);">Fehler beim Laden der Standings.</td></tr>';
+    function getLogoSrc(teamName) {
+      return teamLogos[teamName] || "logos/placeholder.png";
     }
-  }
 
-  // Live Dashboard (beste Bilanz + Serien)
-  async function loadDashboard() {
-    if (!DASHBOARD_CSV_URL.startsWith("http")) return;
-    try {
-      const res = await fetch(DASHBOARD_CSV_URL);
+    // === CSV-Helper ===
+    async function fetchCSV(url) {
+      if (!url || url.startsWith("https://dein-link")) {
+        return null;
+      }
+      const res = await fetch(url);
       const text = await res.text();
-      const rows = parseCsv(text);
-      if (!rows.length) return;
-      const row = rows[0];
 
-      // Beste Bilanz
-      const bestTeam = row.best_team || "";
-      document.getElementById("best-record-team").textContent = bestTeam;
-      document.getElementById("best-record-meta").textContent =
-        row.best_win_pct ? `Sieggquote: ${row.best_win_pct}` : "";
-      document.getElementById("best-record-logo").src = getLogo(bestTeam);
+      const rows = text
+        .trim()
+        .split(/\r?\n/)
+        .map((line) => {
+          const result = [];
+          let current = "";
+          let inQuotes = false;
+          for (let i = 0; i < line.length; i++) {
+            const ch = line[i];
+            if (ch === '"' && line[i + 1] === '"') {
+              current += '"';
+              i++;
+            } else if (ch === '"') {
+              inQuotes = !inQuotes;
+            } else if (ch === "," && !inQuotes) {
+              result.push(current);
+              current = "";
+            } else {
+              current += ch;
+            }
+          }
+          result.push(current);
+          return result;
+        });
 
-      // Siegesserie
-      const winTeam = row.win_streak_team || "";
-      document.getElementById("win-streak-team").textContent = winTeam;
-      document.getElementById("win-streak-meta").textContent = row.win_streak_label || "";
-      document.getElementById("win-streak-logo").src = getLogo(winTeam);
-
-      // Niederlagenserie
-      const lossTeam = row.loss_streak_team || "";
-      document.getElementById("loss-streak-team").textContent = lossTeam;
-      document.getElementById("loss-streak-meta").textContent = row.loss_streak_label || "";
-      document.getElementById("loss-streak-logo").src = getLogo(lossTeam);
-    } catch (err) {
-      console.error("Dashboard-Load-Error:", err);
+      const headers = rows[0];
+      const data = rows.slice(1).map((row) => {
+        const obj = {};
+        headers.forEach((h, i) => {
+          obj[h.trim()] = row[i] !== undefined ? row[i].trim() : "";
+        });
+        return obj;
+      });
+      return data;
     }
-  }
 
-  // Matchups + Prognose laden (matchups_live: away_team, home_team, score, projection)
-  async function loadMatchups() {
-    if (!MATCHUPS_CSV_URL.startsWith("http")) return;
-    const container = document.getElementById("matchups-container");
+    // === Settings laden (Best Team, Streaks, Podcast) ===
+    async function loadSettings() {
+      const data = await fetchCSV(SETTINGS_CSV_URL);
+      if (!data || !data.length) return;
+      const row = data[0];
 
-    try {
-      const res = await fetch(MATCHUPS_CSV_URL);
-      const text = await res.text();
-      const rows = parseCsv(text);
-      container.innerHTML = "";
+      const bestTeam = row.best_team || "–";
+      const bestWinPct = row.best_win_pct || "";
+      const winStreakTeam = row.win_streak_team || "";
+      const winStreakLabel = row.win_streak_label || "";
+      const lossStreakTeam = row.loss_streak_team || "";
+      const lossStreakLabel = row.loss_streak_label || "";
+      const podcastEmbedSrc = row.podcast_embed_src || "";
 
-      if (!rows.length) {
-        container.innerHTML =
-          '<div style="font-size:13px;color:var(--text-muted);">Keine laufenden Matchups eingetragen.</div>';
+      const bestTeamPill = document.getElementById("best-team-pill");
+      if (bestTeamPill) {
+        bestTeamPill.textContent =
+          bestWinPct
+            ? `Beste Bilanz: ${bestTeam} (${(parseFloat(bestWinPct) * 100).toFixed(1)} %)`
+            : `Beste Bilanz: ${bestTeam}`;
+      }
+
+      const streakPill = document.getElementById("streak-pill");
+      if (streakPill) {
+        let txt = "Längste Serie: –";
+        if (winStreakTeam && winStreakLabel) {
+          txt = `Längste Serie: ${winStreakTeam} (${winStreakLabel})`;
+        }
+        if (lossStreakTeam && lossStreakLabel) {
+          txt += ` · Negativ: ${lossStreakTeam} (${lossStreakLabel})`;
+        }
+        streakPill.textContent = txt;
+      }
+
+      const iframe = document.getElementById("podcast-embed");
+      if (iframe && podcastEmbedSrc) {
+        iframe.src = podcastEmbedSrc;
+      }
+    }
+
+    // === Standings laden ===
+    async function loadStandings() {
+      const tableBody = document.querySelector("#standings-table tbody");
+      if (!tableBody) return;
+
+      const data = await fetchCSV(STANDINGS_CSV_URL);
+      if (!data) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="muted">Keine Standings verfügbar.</td></tr>';
         return;
       }
 
-      rows.forEach(row => {
-        const div = document.createElement("div");
-        div.className = "matchup-row";
+      // Erwartete Spalten: rank, team_name, wins, losses, win_pct, streak_label
+      tableBody.innerHTML = "";
+      data.forEach((row) => {
+        if (!row.team_name) return;
+        const tr = document.createElement("tr");
 
-        const left = document.createElement("div");
-        left.className = "matchup-label";
+        const rankTd = document.createElement("td");
+        rankTd.textContent = row.rank || "";
+        tr.appendChild(rankTd);
 
-        const away = row.away_team || "";
-        const home = row.home_team || "";
-        const score = row.score ? ` • Score: ${row.score}` : "";
+        const teamTd = document.createElement("td");
+        teamTd.innerHTML = `
+          <div class="team-cell">
+            <img class="team-logo" src="${getLogoSrc(row.team_name)}" alt="">
+            <span class="team-name">${row.team_name}</span>
+          </div>
+        `;
+        tr.appendChild(teamTd);
 
-        left.textContent = `${away} @ ${home}${score}`;
+        const recordTd = document.createElement("td");
+        recordTd.textContent = `${row.wins || "0"}-${row.losses || "0"}`;
+        tr.appendChild(recordTd);
 
-        const right = document.createElement("div");
-        right.className = "matchup-proj";
-        right.textContent = row.projection
-          ? `Prognose: ${row.projection}`
-          : "";
+        const winPctTd = document.createElement("td");
+        if (row.win_pct) {
+          const num = parseFloat(row.win_pct);
+          winPctTd.textContent = (num * 100).toFixed(1) + " %";
+        } else {
+          winPctTd.textContent = "–";
+        }
+        tr.appendChild(winPctTd);
 
-        div.appendChild(left);
-        div.appendChild(right);
-        container.appendChild(div);
+        const streakTd = document.createElement("td");
+        streakTd.textContent = row.streak_label || "–";
+        tr.appendChild(streakTd);
+
+        tableBody.appendChild(tr);
       });
-    } catch (err) {
-      console.error("Matchups-Load-Error:", err);
-      container.innerHTML =
-        '<div style="font-size:13px;color:var(--text-muted);">Fehler beim Laden der Matchups.</div>';
-    }
-  }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    loadStandings();
-    loadDashboard();
-    loadMatchups();
-  });
-</script>
+      if (!tableBody.children.length) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="muted">Keine Standings verfügbar.</td></tr>';
+      }
+    }
+
+    // === Matchups live laden ===
+    async function loadMatchups() {
+      const tableBody = document.querySelector("#matchups-table tbody");
+      if (!tableBody) return;
+
+      const data = await fetchCSV(MATCHUPS_LIVE_CSV_URL);
+      if (!data) {
+        tableBody.innerHTML = '<tr><td colspan="4" class="muted">Keine Matchups verfügbar.</td></tr>';
+        return;
+      }
+
+      // Erwartete Spalten: matchup, away_team, home_team, projection_label (oder ähnlich)
+      tableBody.innerHTML = "";
+      data.forEach((row) => {
+        if (!row.away_team || !row.home_team) return;
+
+        const tr = document.createElement("tr");
+
+        const matchupTd = document.createElement("td");
+        matchupTd.textContent = row.matchup || `${row.away_team} @ ${row.home_team}`;
+        tr.appendChild(matchupTd);
+
+        const awayTd = document.createElement("td");
+        awayTd.innerHTML = `
+          <div class="team-cell">
+            <img class="team-logo" src="${getLogoSrc(row.away_team)}" alt="">
+            <span class="team-name">${row.away_team}</span>
+          </div>
+        `;
+        tr.appendChild(awayTd);
+
+        const homeTd = document.createElement("td");
+        homeTd.innerHTML = `
+          <div class="team-cell">
+            <img class="team-logo" src="${getLogoSrc(row.home_team)}" alt="">
+            <span class="team-name">${row.home_team}</span>
+          </div>
+        `;
+        tr.appendChild(homeTd);
+
+        const projTd = document.createElement("td");
+        const label = row.projection_label || row.prognose || "";
+        projTd.innerHTML = label
+          ? `<span class="pill-small">${label}</span>`
+          : '<span class="muted">–</span>';
+        tr.appendChild(projTd);
+
+        tableBody.appendChild(tr);
+      });
+
+      if (!tableBody.children.length) {
+        tableBody.innerHTML = '<tr><td colspan="4" class="muted">Keine Matchups verfügbar.</td></tr>';
+      }
+    }
+
+    // === Power Ranking klassisch laden ===
+    async function loadPowerRanking() {
+      const tableBody = document.querySelector("#power-ranking-table tbody");
+      if (!tableBody) return;
+
+      const data = await fetchCSV(POWER_RANKING_CSV_URL);
+      if (!data) {
+        tableBody.innerHTML =
+          '<tr><td colspan="3" class="muted">Noch kein Power Ranking veröffentlicht.</td></tr>';
+        return;
+      }
+
+      // Erwartete Spalten: rank, team_name, score, note
+      tableBody.innerHTML = "";
+      data
+        .filter((row) => row.team_name)
+        .sort((a, b) => (parseInt(a.rank || 99) - parseInt(b.rank || 99)))
+        .forEach((row) => {
+          const tr = document.createElement("tr");
+          if (row.rank === "1") {
+            tr.classList.add("highlight-row");
+          }
+
+          const rankTd = document.createElement("td");
+          rankTd.textContent = row.rank || "";
+          tr.appendChild(rankTd);
+
+          const teamTd = document.createElement("td");
+          teamTd.innerHTML = `
+            <div class="team-cell">
+              <img class="team-logo" src="${getLogoSrc(row.team_name)}" alt="">
+              <span class="team-name">${row.team_name}</span>
+            </div>
+            ${row.note ? `<div class="muted">${row.note}</div>` : ""}
+          `;
+          tr.appendChild(teamTd);
+
+          const scoreTd = document.createElement("td");
+          if (row.score) {
+            const num = parseFloat(row.score.replace(",", "."));
+            scoreTd.textContent = isNaN(num) ? row.score : num.toFixed(3);
+          } else {
+            scoreTd.textContent = "–";
+          }
+          tr.appendChild(scoreTd);
+
+          tableBody.appendChild(tr);
+        });
+
+      if (!tableBody.children.length) {
+        tableBody.innerHTML =
+          '<tr><td colspan="3" class="muted">Noch kein Power Ranking veröffentlicht.</td></tr>';
+      }
+    }
+
+    // === Power Ranking+ laden ===
+    async function loadPowerRankingPlus() {
+      const tableBody = document.querySelector("#power-ranking-plus-table tbody");
+      if (!tableBody) return;
+
+      const data = await fetchCSV(POWER_RANKING_PLUS_CSV_URL);
+      if (!data) {
+        tableBody.innerHTML =
+          '<tr><td colspan="4" class="muted">Noch kein Power Ranking+ veröffentlicht.</td></tr>';
+        return;
+      }
+
+      // Erwartete Spalten: rank, team_name, score, delta
+      tableBody.innerHTML = "";
+      data
+        .filter((row) => row.team_name)
+        .sort((a, b) => (parseInt(a.rank || 99) - parseInt(b.rank || 99)))
+        .forEach((row) => {
+          const tr = document.createElement("tr");
+          if (row.rank === "1") {
+            tr.classList.add("highlight-row");
+          }
+
+          const rankTd = document.createElement("td");
+          rankTd.textContent = row.rank || "";
+          tr.appendChild(rankTd);
+
+          const teamTd = document.createElement("td");
+          teamTd.innerHTML = `
+            <div class="team-cell">
+              <img class="team-logo" src="${getLogoSrc(row.team_name)}" alt="">
+              <span class="team-name">${row.team_name}</span>
+            </div>
+          `;
+          tr.appendChild(teamTd);
+
+          const scoreTd = document.createElement("td");
+          if (row.score) {
+            const num = parseFloat(row.score.replace(",", "."));
+            scoreTd.textContent = isNaN(num) ? row.score : num.toFixed(3);
+          } else {
+            scoreTd.textContent = "–";
+          }
+          tr.appendChild(scoreTd);
+
+          const deltaTd = document.createElement("td");
+          const deltaRaw = row.delta || "0";
+          const delta = parseInt(deltaRaw, 10);
+          let cls = "delta-zero";
+          let txt = "0";
+          if (!isNaN(delta)) {
+            if (delta > 0) {
+              cls = "delta-pos";
+              txt = "+" + delta;
+            } else if (delta < 0) {
+              cls = "delta-neg";
+              txt = delta.toString();
+            }
+          } else {
+            txt = deltaRaw;
+          }
+          deltaTd.innerHTML = `<span class="${cls}">${txt}</span>`;
+          tr.appendChild(deltaTd);
+
+          tableBody.appendChild(tr);
+        });
+
+      if (!tableBody.children.length) {
+        tableBody.innerHTML =
+          '<tr><td colspan="4" class="muted">Noch kein Power Ranking+ veröffentlicht.</td></tr>';
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadSettings();
+      loadStandings();
+      loadMatchups();
+      loadPowerRanking();
+      loadPowerRankingPlus();
+    });
+  </script>
 </body>
 </html>
